@@ -234,11 +234,7 @@ void CCaptureDlg::OnClickedButtonCapture()
 
 	// staticSize->GetClientRect(rect2);
 	   //Image.Load(imgName);
-	
-	RedrawWindow();
-	Image.BitBlt(dc.m_hDC, 0, 0);
-	
-	
+
 	
 	SIZE s;
 	ZeroMemory(&s, sizeof(SIZE));
@@ -249,16 +245,19 @@ void CCaptureDlg::OnClickedButtonCapture()
 	if (cx>400 || cy>400)
 		this->SetWindowPos(NULL, (s.cx / 2) - cx / 2, (s.cy / 2) - cy / 2, cx, cy, SWP_NOREPOSITION);
 	else this->SetWindowPos(NULL, s.cx / 2 - 200, s.cy / 2 - 200, 400, 400, SWP_NOREPOSITION);
+
+	Image.BitBlt(dc.m_hDC, 0, 0);
 	
 
 
 	
 	   // 그 파일을 실행해 준다. 
 
-	
+	/*
 	::ShellExecute(NULL,
 		TEXT("open"), TEXT("Desktop.jpg"),
 		NULL, NULL, SW_SHOW);
+	*/
 	
 		
 	m_bCaptureMode = true;
