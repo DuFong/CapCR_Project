@@ -6,6 +6,8 @@
 #include "afxwin.h"
 #include "atlimage.h"
 
+typedef BOOL(WINAPI* SLWA)(HWND hWnd, COLORREF crKey, BYTE bAlpha, DWORD dwFlags);
+
 
 // CCaptureDlg 대화 상자
 class CCaptureDlg : public CDialogEx
@@ -39,4 +41,7 @@ public:
 	
 	
 	CImage Image;
+	RECT area;
+//	void SetTransparency(int percent);
+	BOOL m_bCaptureMode;
 };

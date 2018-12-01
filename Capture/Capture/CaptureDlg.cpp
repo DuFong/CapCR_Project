@@ -55,6 +55,7 @@ END_MESSAGE_MAP()
 
 CCaptureDlg::CCaptureDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_CAPTURE_DIALOG, pParent)
+	, m_bCaptureMode(FALSE)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -107,6 +108,7 @@ BOOL CCaptureDlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 
+	this->GetWindowRect(&area);
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
@@ -150,6 +152,17 @@ void CCaptureDlg::OnPaint()
 	{
 		CDialogEx::OnPaint();
 	}
+	if (m_bCaptureMode)
+	{
+
+		CPaintDC dc(this);
+	
+		if (Image!= NULL)
+			Image.BitBlt(dc.m_hDC, 0, 0);
+
+
+	}
+	
 }
 
 // 사용자가 최소화된 창을 끄는 동안에 커서가 표시되도록 시스템에서
@@ -168,11 +181,17 @@ void CCaptureDlg::OnClickedButtonCapture()
 
 
 	CString imgName = _T("Desktop.jpg");
+
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	
+	
+	
 	CanvasDlg canvas;
 	canvas.DoModal();
 
-	RECT area = canvas.GetClipRect();
+	
+
+	 area = canvas.GetClipRect();
 	int nClipWidth = area.right - area.left;
 	int nClipHeight = area.bottom - area.top;
 
@@ -191,8 +210,12 @@ void CCaptureDlg::OnClickedButtonCapture()
 	int sy = area.top;
 	int cx = nClipWidth;
 	int cy = nClipHeight;
+	
+
+
 
 	Image.Create(cx, cy, ScrDC.GetDeviceCaps(BITSPIXEL));
+
 
 	// 이미지 DC에 현재 작업 영역의 절대 좌표를 사용해 그 크기만큼 저장하게 한다. 
 
@@ -203,7 +226,7 @@ void CCaptureDlg::OnClickedButtonCapture()
 
 	// 저장된 이미지를 원하는 파일명, 포멧타입을 지정해서 저장한다. 
 
-	// Image.Save(imgName, Gdiplus::ImageFormatJPEG);
+	//Image.Save(imgName, Gdiplus::ImageFormatJPEG);
 
     
      //CStatic *staticSize = (CStatic*)GetDlgItem(AFX_IDC_PICTURE);
@@ -212,20 +235,47 @@ void CCaptureDlg::OnClickedButtonCapture()
 	// staticSize->GetClientRect(rect2);
 	   //Image.Load(imgName);
 	
+	RedrawWindow();
 	Image.BitBlt(dc.m_hDC, 0, 0);
 	
+	
+	
+	SIZE s;
+	ZeroMemory(&s, sizeof(SIZE));
+	s.cx = (LONG)::GetSystemMetrics(SM_CXFULLSCREEN);
+	s.cy = (LONG)::GetSystemMetrics(SM_CYFULLSCREEN);
+
 	Image.Save(imgName, Gdiplus::ImageFormatJPEG);
+	if (cx>400 || cy>400)
+		this->SetWindowPos(NULL, (s.cx / 2) - cx / 2, (s.cy / 2) - cy / 2, cx, cy, SWP_NOREPOSITION);
+	else this->SetWindowPos(NULL, s.cx / 2 - 200, s.cy / 2 - 200, 400, 400, SWP_NOREPOSITION);
+	
 
 
+	
 	   // 그 파일을 실행해 준다. 
 
 	
-	/*::ShellExecute(NULL,
+	::ShellExecute(NULL,
 		TEXT("open"), TEXT("Desktop.jpg"),
 		NULL, NULL, SW_SHOW);
-		*/
+	
 		
-
+	m_bCaptureMode = true;
 }
 
 
+
+
+
+
+//void CCaptureDlg::SetTransparency(int percent)
+//{
+//	SLWA pSetLayeredWindowAttributes = NULL;  // 함수포인터 선언, 초기화.
+//	HINSTANCE hmodUSER32 = LoadLibrary("USER32.DLL"); // 인스턴스 얻음.
+//	pSetLayeredWindowAttributes = (SLWA)GetProcAddress(hmodUSER32, "SetLayeredWindowAttributes");
+//	//함수포인터 얻음.
+//	HWND hwnd = this->m_hWnd; //다이얼로그의 핸들 얻음.
+//	SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+//	pSetLayeredWindowAttributes(hwnd, 0, (255 * percent) / 100, LWA_ALPHA);
+//}
