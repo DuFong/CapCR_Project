@@ -184,7 +184,7 @@ void CCaptureDlg::OnClickedButtonCapture()
 
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	
-	
+	SetTransparency(0);
 	
 	CanvasDlg canvas;
 	canvas.DoModal();
@@ -246,6 +246,8 @@ void CCaptureDlg::OnClickedButtonCapture()
 		this->SetWindowPos(NULL, (s.cx / 2) - cx / 2, (s.cy / 2) - cy / 2, cx, cy, SWP_NOREPOSITION);
 	else this->SetWindowPos(NULL, s.cx / 2 - 200, s.cy / 2 - 200, 400, 400, SWP_NOREPOSITION);
 
+	SetTransparency(100);
+
 	Image.BitBlt(dc.m_hDC, 0, 0);
 	
 
@@ -278,3 +280,16 @@ void CCaptureDlg::OnClickedButtonCapture()
 //	SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_LAYERED);
 //	pSetLayeredWindowAttributes(hwnd, 0, (255 * percent) / 100, LWA_ALPHA);
 //}
+
+
+void CCaptureDlg::SetTransparency(int percent)
+{
+	SLWA pSetLayeredWindowAttributes = NULL;  // 함수포인터 선언, 초기화.
+	HINSTANCE hmodUSER32 = LoadLibrary("USER32.DLL"); // 인스턴스 얻음.
+	pSetLayeredWindowAttributes = (SLWA)GetProcAddress(hmodUSER32, "SetLayeredWindowAttributes");
+	//함수포인터 얻음.
+	HWND hwnd = this->m_hWnd; //다이얼로그의 핸들 얻음.
+	SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+	pSetLayeredWindowAttributes(hwnd, 0, (255 * percent) / 100, LWA_ALPHA);
+
+}
