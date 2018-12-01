@@ -125,7 +125,12 @@ void CCaptureView::OnBnClickedButtonCapture()
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	pFrame->SetLayeredWindowAttributes(0, 50, LWA_ALPHA);
+
+	// 현재 창 투명하게
+	::SetWindowLong(pFrame->GetSafeHwnd(), GWL_EXSTYLE, ::GetWindowLong(pFrame->GetSafeHwnd(), GWL_EXSTYLE) | WS_EX_LAYERED);
+	pFrame->SetLayeredWindowAttributes(0, 0, LWA_ALPHA);
+	
+	// Canvas 다이얼로그 호출
 	CanvasDlg canvas;
 	canvas.DoModal();
 
@@ -183,11 +188,14 @@ void CCaptureView::OnBnClickedButtonCapture()
 	s.cy = (LONG)::GetSystemMetrics(SM_CYFULLSCREEN);
 	
 	Image.Save(imgName, Gdiplus::ImageFormatJPEG);
-	if (cx > 520 && cy > 300) 
+	if (cx > 520 && cy > 300)
 		pFrame->SetWindowPos(NULL, (s.cx / 2) - cx / 2, 0, cx + 50, cy + 200, SWP_NOREPOSITION);
+	else if (cx < 520 && cy < 300)
+		pFrame->SetWindowPos(NULL, s.cx / 2 - 260, 0, 570, 500, SWP_NOREPOSITION);
 	else if (cx < 520)
-		pFrame->SetWindowPos(NULL, s.cx / 2 - 260, 0, 570, cy + 200, SWP_NOREPOSITION);
-	else pFrame->SetWindowPos(NULL, s.cx / 2 - cx/2, 70, cx+50, cy+200, SWP_NOREPOSITION);
+		pFrame->SetWindowPos(NULL, (s.cx / 2) - 280, 0, 570, cy + 200, SWP_NOREPOSITION);
+	else
+		pFrame->SetWindowPos(NULL, s.cx / 2 - (cx / 2), 0, cx + 50, 500, SWP_NOREPOSITION);
 	
 	
 	/*
@@ -199,6 +207,10 @@ void CCaptureView::OnBnClickedButtonCapture()
 	GetParentFrame()->SetWindowPlacement(&wndpl);
 	*/
 
+	// 창 투명화 해제
+	pFrame->SetLayeredWindowAttributes(0, 255, LWA_ALPHA);
+
+	// 이미지 뷰에 붙이기
 	Image.BitBlt(dc.m_hDC, 0, 0);
 	
 
