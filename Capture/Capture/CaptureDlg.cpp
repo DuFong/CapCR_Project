@@ -108,6 +108,14 @@ BOOL CCaptureDlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 
+	// 툴바 추가함.
+	m_toolbar = new CToolBar();
+	DWORD style = WS_CHILD | WS_VISIBLE | CBRS_TOOLTIPS;
+	style |= (CBRS_ALIGN_TOP & CBRS_ALIGN_ANY);
+	m_toolbar->CreateEx(this, TBSTYLE_FLAT, style);
+	m_toolbar->LoadToolBar(IDR_TOOLBAR1);
+	RepositionBars(AFX_IDW_CONTROLBAR_FIRST, AFX_IDW_CONTROLBAR_LAST, 0);
+
 	this->GetWindowRect(&area);
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -131,9 +139,10 @@ void CCaptureDlg::OnSysCommand(UINT nID, LPARAM lParam)
 
 void CCaptureDlg::OnPaint()
 {
+	CPaintDC dc(this);
 	if (IsIconic())
 	{
-		CPaintDC dc(this); // 그리기를 위한 디바이스 컨텍스트입니다.
+		 // 그리기를 위한 디바이스 컨텍스트입니다.
 
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
@@ -147,22 +156,17 @@ void CCaptureDlg::OnPaint()
 
 		// 아이콘을 그립니다.
 		dc.DrawIcon(x, y, m_hIcon);
+
+		if(Image.IsNull() == FALSE)			// 창 변화시 그림 사라지는거 방지
+			Image.BitBlt(dc.m_hDC, 0, 22);
 	}
 	else
 	{
+		if (Image.IsNull() == FALSE)		// 창 변화시 그림 사라지는거 방지
+			Image.BitBlt(dc.m_hDC, 0, 22);
 		CDialogEx::OnPaint();
 	}
-	if (m_bCaptureMode)
-	{
 
-		CPaintDC dc(this);
-	
-		if (Image!= NULL)
-			Image.BitBlt(dc.m_hDC, 0, 0);
-
-
-	}
-	
 }
 
 // 사용자가 최소화된 창을 끄는 동안에 커서가 표시되도록 시스템에서
@@ -243,12 +247,12 @@ void CCaptureDlg::OnClickedButtonCapture()
 
 	Image.Save(imgName, Gdiplus::ImageFormatJPEG);
 	if (cx>400 || cy>400)
-		this->SetWindowPos(NULL, (s.cx / 2) - cx / 2, (s.cy / 2) - cy / 2, cx, cy, SWP_NOREPOSITION);
-	else this->SetWindowPos(NULL, s.cx / 2 - 200, s.cy / 2 - 200, 400, 400, SWP_NOREPOSITION);
+		this->SetWindowPos(NULL, (s.cx / 2) - cx / 2, (s.cy / 2) - cy / 2, cx+20, cy+62, SWP_NOREPOSITION);
+	else this->SetWindowPos(NULL, s.cx / 2 - 200, s.cy / 2 - 200, 400, 422, SWP_NOREPOSITION);
 
 	SetTransparency(100);
 
-	Image.BitBlt(dc.m_hDC, 0, 0);
+	Image.BitBlt(dc.m_hDC, 0, 22);
 	
 
 
