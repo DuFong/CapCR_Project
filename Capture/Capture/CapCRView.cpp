@@ -16,11 +16,11 @@
 // SHARED_HANDLERS는 미리 보기, 축소판 그림 및 검색 필터 처리기를 구현하는 ATL 프로젝트에서 정의할 수 있으며
 // 해당 프로젝트와 문서 코드를 공유하도록 해 줍니다.
 #ifndef SHARED_HANDLERS
-#include "Capture.h"
+#include "CapCR.h"
 #endif
 
-#include "CaptureDoc.h"
-#include "CaptureView.h"
+#include "CapCRDoc.h"
+#include "CapCRView.h"
 #include "CanvasDlg.h"
 #include "MainFrm.h"
 
@@ -31,35 +31,35 @@
 
 // CCaptureView
 
-IMPLEMENT_DYNCREATE(CCaptureView, CFormView)
+IMPLEMENT_DYNCREATE(CCapCRView, CFormView)
 
-BEGIN_MESSAGE_MAP(CCaptureView, CFormView)
+BEGIN_MESSAGE_MAP(CCapCRView, CFormView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
 //	ON_BN_CLICKED(IDC_BUTTON_CAPTURE, &CCaptureView::OnBnClickedButtonCapture)
-ON_BN_CLICKED(IDC_BUTTON_CAPTURE, &CCaptureView::OnBnClickedButtonCapture)
+ON_BN_CLICKED(IDC_BUTTON_CAPTURE, &CCapCRView::OnBnClickedButtonCapture)
 ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 // CCaptureView 생성/소멸
 
-CCaptureView::CCaptureView()
+CCapCRView::CCapCRView()
 	: CFormView(IDD_CAPTURE_FORM)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 
 }
 
-CCaptureView::~CCaptureView()
+CCapCRView::~CCapCRView()
 {
 }
 
-void CCaptureView::DoDataExchange(CDataExchange* pDX)
+void CCapCRView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
 }
 
-BOOL CCaptureView::PreCreateWindow(CREATESTRUCT& cs)
+BOOL CCapCRView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: CREATESTRUCT cs를 수정하여 여기에서
 	//  Window 클래스 또는 스타일을 수정합니다.
@@ -67,7 +67,7 @@ BOOL CCaptureView::PreCreateWindow(CREATESTRUCT& cs)
 	return CFormView::PreCreateWindow(cs);
 }
 
-void CCaptureView::OnInitialUpdate()
+void CCapCRView::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
 	GetParentFrame()->RecalcLayout();
@@ -75,13 +75,13 @@ void CCaptureView::OnInitialUpdate()
 
 }
 
-void CCaptureView::OnRButtonUp(UINT /* nFlags */, CPoint point)
+void CCapCRView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 {
 	ClientToScreen(&point);
 	OnContextMenu(this, point);
 }
 
-void CCaptureView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
+void CCapCRView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 #ifndef SHARED_HANDLERS
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
@@ -92,20 +92,20 @@ void CCaptureView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 // CCaptureView 진단
 
 #ifdef _DEBUG
-void CCaptureView::AssertValid() const
+void CCapCRView::AssertValid() const
 {
 	CFormView::AssertValid();
 }
 
-void CCaptureView::Dump(CDumpContext& dc) const
+void CCapCRView::Dump(CDumpContext& dc) const
 {
 	CFormView::Dump(dc);
 }
 
-CCaptureDoc* CCaptureView::GetDocument() const // 디버그되지 않은 버전은 인라인으로 지정됩니다.
+CCapCRDoc* CCapCRView::GetDocument() const // 디버그되지 않은 버전은 인라인으로 지정됩니다.
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CCaptureDoc)));
-	return (CCaptureDoc*)m_pDocument;
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CCapCRDoc)));
+	return (CCapCRDoc*)m_pDocument;
 }
 #endif //_DEBUG
 
@@ -114,7 +114,7 @@ CCaptureDoc* CCaptureView::GetDocument() const // 디버그되지 않은 버전은 인라인�
 
 
 
-void CCaptureView::OnBnClickedButtonCapture()
+void CCapCRView::OnBnClickedButtonCapture()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	if (Image != NULL)
@@ -226,7 +226,7 @@ void CCaptureView::OnBnClickedButtonCapture()
 }
 
 
-void CCaptureView::OnPaint()
+void CCapCRView::OnPaint()
 {
 	CPaintDC dc(this);
 	if (IsIconic())
@@ -257,7 +257,7 @@ void CCaptureView::OnPaint()
 }
 
 
-void CCaptureView::SetTransparency(int percent)
+void CCapCRView::SetTransparency(int percent)
 {
 	SLWA pSetLayeredWindowAttributes = NULL;  // 함수포인터 선언, 초기화.
 	HINSTANCE hmodUSER32 = LoadLibrary("USER32.DLL"); // 인스턴스 얻음.

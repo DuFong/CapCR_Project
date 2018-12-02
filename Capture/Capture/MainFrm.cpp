@@ -13,7 +13,7 @@
 //
 
 #include "stdafx.h"
-#include "Capture.h"
+#include "CapCR.h"
 
 #include "MainFrm.h"
 

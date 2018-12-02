@@ -25,11 +25,11 @@ typedef BOOL(WINAPI* SLWA)(HWND hWnd, COLORREF crKey, BYTE bAlpha, DWORD dwFlags
 // 여기까지
 
 
-class CCaptureView : public CFormView
+class CCapCRView : public CFormView
 {
 protected: // serialization에서만 만들어집니다.
-	CCaptureView();
-	DECLARE_DYNCREATE(CCaptureView)
+	CCapCRView();
+	DECLARE_DYNCREATE(CCapCRView)
 
 public:
 #ifdef AFX_DESIGN_TIME
@@ -38,7 +38,7 @@ public:
 
 // 특성입니다.
 public:
-	CCaptureDoc* GetDocument() const;
+	CCapCRDoc* GetDocument() const;
 
 
 // 작업입니다.
@@ -56,7 +56,7 @@ public:
 	CImage Image;
 	HICON m_hIcon;
 	RECT area;
-	virtual ~CCaptureView();
+	virtual ~CCapCRView();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;

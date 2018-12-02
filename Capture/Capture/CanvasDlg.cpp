@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "Capture.h"
+#include "CapCR.h"
 #include "CanvasDlg.h"
 #include "afxdialogex.h"
 

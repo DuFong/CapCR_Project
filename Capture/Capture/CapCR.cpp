@@ -15,11 +15,11 @@
 #include "stdafx.h"
 #include "afxwinappex.h"
 #include "afxdialogex.h"
-#include "Capture.h"
+#include "CapCR.h"
 #include "MainFrm.h"
 
-#include "CaptureDoc.h"
-#include "CaptureView.h"
+#include "CapCRDoc.h"
+#include "CapCRView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -28,8 +28,8 @@
 
 // CCaptureApp
 
-BEGIN_MESSAGE_MAP(CCaptureApp, CWinAppEx)
-	ON_COMMAND(ID_APP_ABOUT, &CCaptureApp::OnAppAbout)
+BEGIN_MESSAGE_MAP(CCapCRApp, CWinAppEx)
+	ON_COMMAND(ID_APP_ABOUT, &CCapCRApp::OnAppAbout)
 	// 표준 파일을 기초로 하는 문서 명령입니다.
 	ON_COMMAND(ID_FILE_NEW, &CWinAppEx::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, &CWinAppEx::OnFileOpen)
@@ -38,7 +38,7 @@ END_MESSAGE_MAP()
 
 // CCaptureApp 생성
 
-CCaptureApp::CCaptureApp()
+CCapCRApp::CCapCRApp()
 {
 	// 다시 시작 관리자 지원
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_ALL_ASPECTS;
@@ -59,12 +59,12 @@ CCaptureApp::CCaptureApp()
 
 // 유일한 CCaptureApp 개체입니다.
 
-CCaptureApp theApp;
+CCapCRApp theApp;
 
 
 // CCaptureApp 초기화
 
-BOOL CCaptureApp::InitInstance()
+BOOL CCapCRApp::InitInstance()
 {
 	// 응용 프로그램 매니페스트가 ComCtl32.dll 버전 6 이상을 사용하여 비주얼 스타일을
 	// 사용하도록 지정하는 경우, Windows XP 상에서 반드시 InitCommonControlsEx()가 필요합니다. 
@@ -119,9 +119,9 @@ BOOL CCaptureApp::InitInstance()
 	CSingleDocTemplate* pDocTemplate;
 	pDocTemplate = new CSingleDocTemplate(
 		IDR_MAINFRAME,
-		RUNTIME_CLASS(CCaptureDoc),
+		RUNTIME_CLASS(CCapCRDoc),
 		RUNTIME_CLASS(CMainFrame),       // 주 SDI 프레임 창입니다.
-		RUNTIME_CLASS(CCaptureView));
+		RUNTIME_CLASS(CCapCRView));
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);
@@ -144,7 +144,7 @@ BOOL CCaptureApp::InitInstance()
 	return TRUE;
 }
 
-int CCaptureApp::ExitInstance()
+int CCapCRApp::ExitInstance()
 {
 	//TODO: 추가한 추가 리소스를 처리합니다.
 	AfxOleTerm(FALSE);
@@ -188,7 +188,7 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 // 대화 상자를 실행하기 위한 응용 프로그램 명령입니다.
-void CCaptureApp::OnAppAbout()
+void CCapCRApp::OnAppAbout()
 {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
@@ -196,7 +196,7 @@ void CCaptureApp::OnAppAbout()
 
 // CCaptureApp 사용자 지정 로드/저장 메서드
 
-void CCaptureApp::PreLoadState()
+void CCapCRApp::PreLoadState()
 {
 	BOOL bNameValid;
 	CString strName;
@@ -205,11 +205,11 @@ void CCaptureApp::PreLoadState()
 	GetContextMenuManager()->AddMenu(strName, IDR_POPUP_EDIT);
 }
 
-void CCaptureApp::LoadCustomState()
+void CCapCRApp::LoadCustomState()
 {
 }
 
-void CCaptureApp::SaveCustomState()
+void CCapCRApp::SaveCustomState()
 {
 }
 

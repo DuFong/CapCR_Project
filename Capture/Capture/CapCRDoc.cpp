@@ -16,10 +16,10 @@
 // SHARED_HANDLERS는 미리 보기, 축소판 그림 및 검색 필터 처리기를 구현하는 ATL 프로젝트에서 정의할 수 있으며
 // 해당 프로젝트와 문서 코드를 공유하도록 해 줍니다.
 #ifndef SHARED_HANDLERS
-#include "Capture.h"
+#include "CapCR.h"
 #endif
 
-#include "CaptureDoc.h"
+#include "CapCRDoc.h"
 
 #include <propkey.h>
 
@@ -29,25 +29,25 @@
 
 // CCaptureDoc
 
-IMPLEMENT_DYNCREATE(CCaptureDoc, CDocument)
+IMPLEMENT_DYNCREATE(CCapCRDoc, CDocument)
 
-BEGIN_MESSAGE_MAP(CCaptureDoc, CDocument)
+BEGIN_MESSAGE_MAP(CCapCRDoc, CDocument)
 END_MESSAGE_MAP()
 
 
 // CCaptureDoc 생성/소멸
 
-CCaptureDoc::CCaptureDoc()
+CCapCRDoc::CCapCRDoc()
 {
 	// TODO: 여기에 일회성 생성 코드를 추가합니다.
 
 }
 
-CCaptureDoc::~CCaptureDoc()
+CCapCRDoc::~CCapCRDoc()
 {
 }
 
-BOOL CCaptureDoc::OnNewDocument()
+BOOL CCapCRDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
 		return FALSE;
@@ -63,7 +63,7 @@ BOOL CCaptureDoc::OnNewDocument()
 
 // CCaptureDoc serialization
 
-void CCaptureDoc::Serialize(CArchive& ar)
+void CCapCRDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
@@ -132,12 +132,12 @@ void CCaptureDoc::SetSearchContent(const CString& value)
 // CCaptureDoc 진단
 
 #ifdef _DEBUG
-void CCaptureDoc::AssertValid() const
+void CCapCRDoc::AssertValid() const
 {
 	CDocument::AssertValid();
 }
 
-void CCaptureDoc::Dump(CDumpContext& dc) const
+void CCapCRDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);
 }

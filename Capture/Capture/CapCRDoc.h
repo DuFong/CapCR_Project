@@ -16,11 +16,11 @@
 #pragma once
 
 
-class CCaptureDoc : public CDocument
+class CCapCRDoc : public CDocument
 {
 protected: // serialization에서만 만들어집니다.
-	CCaptureDoc();
-	DECLARE_DYNCREATE(CCaptureDoc)
+	CCapCRDoc();
+	DECLARE_DYNCREATE(CCapCRDoc)
 
 // 특성입니다.
 public:
@@ -39,7 +39,7 @@ public:
 
 // 구현입니다.
 public:
-	virtual ~CCaptureDoc();
+	virtual ~CCapCRDoc();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
