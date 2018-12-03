@@ -47,6 +47,7 @@ END_MESSAGE_MAP()
 
 CCapCRView::CCapCRView()
 	: CFormView(IDD_CAPCR_FORM)
+	, m_strTextbox(_T(""))
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 
@@ -62,6 +63,7 @@ void CCapCRView::DoDataExchange(CDataExchange* pDX)
 	//  DDX_Text(pDX, IDC_EDIT_INPUT_IMG, m_strInput);
 	//  DDX_Text(pDX, IDC_EDIT_OUTPUT_TXT, m_strOutput);
 	//  DDX_Text(pDX, IDC_EXPLAIN, m_message);
+	DDX_Text(pDX, IDC_EDIT_TEXT, m_strTextbox);
 }
 
 BOOL CCapCRView::PreCreateWindow(CREATESTRUCT& cs)
@@ -255,5 +257,7 @@ void CCapCRView::OnButtonCapture()
 void CCapCRView::OnButtonRunocr()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-
+	COCR *ocr = new COCR();
+	ocr->RunOCR(&Image, "ConvertedText.txt", 50);
+	UpdateData(FALSE);
 }

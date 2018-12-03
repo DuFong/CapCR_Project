@@ -72,7 +72,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "C:\\Users\\yunakim\\Documents\\CapCR_Project\\CapCR\\CapCR\\res\\CapCR.ico"
+IDR_MAINFRAME           ICON                    "res\\CapCR.ico"
 IDR_CapCRTYPE           ICON                    "res\\CapCRDoc.ico"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -82,7 +82,7 @@ IDR_CapCRTYPE           ICON                    "res\\CapCRDoc.ico"
 
 IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
 IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar256.bmp"
-IDB_MAIN                BITMAP                  "C:\\Users\\yunakim\\Documents\\CapCR_Project\\CapCR\\CapCR\\res\\main.bmp"
+IDB_MAIN                BITMAP                  "res\\main.bmp"
 IDB_FILELARGE           BITMAP                  "res\\filelarge.bmp"
 IDB_FILESMALL           BITMAP                  "res\\filesmall.bmp"
 IDB_WRITELARGE          BITMAP                  "res\\writelarge.bmp"

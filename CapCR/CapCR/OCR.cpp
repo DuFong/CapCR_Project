@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "OCR.h"
+#include "CapCRView.h"
+#include "MainFrm.h"
 #include <fstream>
 
 using namespace std;
@@ -682,6 +684,9 @@ void COCR::StoreLetterToTextFile(CString outFileName)
 	FILE *fp;
 	fp = fopen((char*)((LPCSTR)(outFileName)), "wt");
 
+	CString strResult;
+	strResult.Format(_T(""));
+
 	/*	CString a, b, c;
 	a.Format(_T("%d"), allData.data[5].rect.start.y);
 	b.Format(_T("%d"), allData.data[5].rect.end.y);
@@ -695,19 +700,34 @@ void COCR::StoreLetterToTextFile(CString outFileName)
 
 	for (int i = 0; i < allData.count; i++)
 	{
+		CString chr2str;
+		chr2str.Format(_T("%c"), allData.data[i].letter.value);
+
 		if (!allData.data[i].isDeleted)		// Å«µû¿ÈÇ¥("")Ã³¸®
+		{
 			fputc(allData.data[i].letter.value, fp);
+			strResult += chr2str;
+		}
 
 		if (allData.data[i + 1].isFixed)		// °³Çà »ðÀÔ
+		{
 			fputc('\n', fp);
+			strResult += "\n";
+		}
 
 		if (allData.data[i + 1].isSpaced)		// °ø¹é »ðÀÔ
+		{
 			fputc(' ', fp);
+			strResult += " ";
+		}
 
-	//	PrintImageDataToFile(i, &allData.data[i].letter);
-	//	PrintImageToFile(i, &allData.data[i].rect);
+		//	PrintImageDataToFile(i, &allData.data[i].letter);
+		//	PrintImageToFile(i, &allData.data[i].rect);
 	}
 	fclose(fp);
+
+	CCapCRView* pView = (CCapCRView*)((CMainFrame*)AfxGetMainWnd())->GetActiveView();
+	pView->m_strTextbox.SetString(strResult);
 }
 
 
