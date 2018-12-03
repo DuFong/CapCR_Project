@@ -64,6 +64,7 @@ public:
 //	afx_msg void OnClickedButtonCapture();
 	afx_msg void OnPaint();
 	afx_msg void OnButtonCapture();
+	afx_msg void OnButtonRunocr();
 };
 
 #ifndef _DEBUG  // CapCRView.cpp의 디버그 버전

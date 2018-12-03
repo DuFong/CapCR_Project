@@ -37,8 +37,6 @@
 #define IDS_EDIT_MENU                   306
 #define IDR_RIBBON                      307
 #define IDD_CANVAS                      310
-#define IDI_ICON1                       319
-#define IDB_BITMAP1                     321
 #define IDC_EDIT_TEXT                   1004
 #define ID_WRITE_PASTEASHYPERLINK       32770
 #define ID_BUTTON_CAPTURE               32774

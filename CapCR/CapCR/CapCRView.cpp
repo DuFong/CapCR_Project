@@ -40,6 +40,7 @@ BEGIN_MESSAGE_MAP(CCapCRView, CFormView)
 //	ON_BN_CLICKED(IDC_BUTTON_CAPTURE, &CCapCRView::OnClickedButtonCapture)
 	ON_WM_PAINT()
 	ON_COMMAND(ID_BUTTON_CAPTURE, &CCapCRView::OnButtonCapture)
+	ON_COMMAND(ID_BUTTON_RUNOCR, &CCapCRView::OnButtonRunocr)
 END_MESSAGE_MAP()
 
 // CCapCRView 생성/소멸
@@ -248,4 +249,11 @@ void CCapCRView::OnButtonCapture()
 	TEXT("open"), TEXT("Desktop.jpg"),
 	NULL, NULL, SW_SHOW);
 	*/
+}
+
+
+void CCapCRView::OnButtonRunocr()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+
 }
