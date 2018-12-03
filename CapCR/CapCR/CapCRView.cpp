@@ -23,6 +23,7 @@
 #include "CapCRView.h"
 #include "MainFrm.h"
 #include "CanvasDlg.h"
+#include "OCR.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -57,6 +58,9 @@ CCapCRView::~CCapCRView()
 void CCapCRView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
+	//  DDX_Text(pDX, IDC_EDIT_INPUT_IMG, m_strInput);
+	//  DDX_Text(pDX, IDC_EDIT_OUTPUT_TXT, m_strOutput);
+	//  DDX_Text(pDX, IDC_EXPLAIN, m_message);
 }
 
 BOOL CCapCRView::PreCreateWindow(CREATESTRUCT& cs)

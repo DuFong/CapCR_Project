@@ -13,6 +13,7 @@
 //
 
 #pragma once
+#include "atlimage.h"
 
 
 class CCapCRView : public CFormView
