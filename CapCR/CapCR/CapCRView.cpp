@@ -41,6 +41,9 @@ BEGIN_MESSAGE_MAP(CCapCRView, CFormView)
 	ON_WM_PAINT()
 	ON_COMMAND(ID_BUTTON_CAPTURE, &CCapCRView::OnButtonCapture)
 	ON_COMMAND(ID_BUTTON_RUNOCR, &CCapCRView::OnButtonRunocr)
+	ON_COMMAND(ID_BUTTON_OPENIMAGE, &CCapCRView::OnButtonOpenimage)
+	ON_COMMAND(ID_BUTTON_SAVEIMAGE, &CCapCRView::OnButtonSaveimage)
+	ON_COMMAND(ID_BUTTON_SAVETEXT, &CCapCRView::OnButtonSavetext)
 END_MESSAGE_MAP()
 
 // CCapCRView 생성/소멸
@@ -125,6 +128,7 @@ CCapCRDoc* CCapCRView::GetDocument() const // 디버그되지 않은 버전은 인라인으로 
 void CCapCRView::OnPaint()
 {
 	CPaintDC dc(this);
+	
 	if (IsIconic())
 	{
 		// 그리기를 위한 디바이스 컨텍스트입니다.
@@ -150,6 +154,12 @@ void CCapCRView::OnPaint()
 			Image.BitBlt(dc.m_hDC, 0, 0);
 		CFormView::OnPaint();
 	}
+	if (!openImage.IsNull())
+	{
+		openImage.BitBlt(dc.m_hDC, 0, 0);
+		
+	}
+	
 }
 
 
@@ -272,4 +282,92 @@ void CCapCRView::OnButtonRunocr()
 	COCR *ocr = new COCR();
 	ocr->RunOCR(&Image, "ConvertedText.txt", 50);
 	UpdateData(FALSE);
+}
+
+
+void CCapCRView::OnButtonOpenimage()
+{
+	char szFilter[] = " All Files(*.*)|*.*|";
+	sFilename = "";
+	CFileDialog dlg(TRUE, NULL, NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, (CString)szFilter, NULL);
+	int cx, cy;
+	int editbox_Height = 150;
+	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+	SIZE s;
+	ZeroMemory(&s, sizeof(SIZE));
+	s.cx = (LONG)::GetSystemMetrics(SM_CXFULLSCREEN);
+	s.cy = (LONG)::GetSystemMetrics(SM_CYFULLSCREEN);
+
+
+	if (IDOK == dlg.DoModal())
+	{
+		sFilename = dlg.GetPathName();
+		if (!openImage.IsNull())
+			openImage.Destroy();
+
+
+		openImage.Load(sFilename);
+		
+		cx = openImage.GetWidth();
+		cy = openImage.GetHeight();
+		
+		if (cx> 520 &&cy> 300)
+			pFrame->SetWindowPos(NULL, (s.cx / 2) - (cx + 50) / 2, 0, cx + 50, cy + 200 + editbox_Height, SWP_NOREPOSITION);
+		else if (cx < 520 && cy < 300)
+			pFrame->SetWindowPos(NULL, s.cx / 2 - 285, 0, 570, 500 + editbox_Height, SWP_NOREPOSITION);
+		else if (cx < 520)
+			pFrame->SetWindowPos(NULL, (s.cx / 2) - 285, 0, 570, cy + 200 + editbox_Height, SWP_NOREPOSITION);
+		else
+			pFrame->SetWindowPos(NULL, s.cx / 2 - ((cx + 50) / 2), 0, cx + 50, 500 + editbox_Height, SWP_NOREPOSITION);
+
+		if (cx < 520)
+			m_editTextbox.MoveWindow(0, cy + 10, 520, editbox_Height);
+		else m_editTextbox.MoveWindow(0, cy + 10, cx, editbox_Height);
+
+		
+
+		Invalidate();
+		UpdateWindow();
+	}
+
+}
+
+
+void CCapCRView::OnButtonSaveimage()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	
+		
+
+	
+
+
+
+}
+
+
+void CCapCRView::OnButtonSavetext()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	printf("[OnBnClickedBtnSave] \n");
+	CString m_strPath;
+	CStdioFile file;
+	// CFile file;
+	CFileException ex;
+	CFileDialog dlg(FALSE, _T("*.txt"), NULL, OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT, _T("TXT Files(*.txt)|*.txt|"), NULL);
+	if (dlg.DoModal() == IDOK)
+	{
+		m_strPath = dlg.GetPathName();
+		if (m_strPath.Right(4) != ".txt")
+		{
+			m_strPath += ".txt";
+		}
+		file.Open(m_strPath, CFile::modeCreate | CFile::modeReadWrite, &ex);
+		// 에디트 박스에 있는 것을 저장한다. 
+		UpdateData(TRUE);
+		file.WriteString(m_strTextbox);
+		// 종료한다. 
+		file.Close();
+	}
+
 }

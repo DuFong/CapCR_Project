@@ -46,6 +46,8 @@ protected:
 // 구현입니다.
 public:
 	CImage Image;
+	CImage openImage;
+	CString sFilename;
 	HICON m_hIcon;
 	RECT area;
 	virtual ~CCapCRView();
@@ -69,6 +71,9 @@ public:
 	afx_msg void OnButtonRunocr();
 	CString m_strTextbox;
 	CEdit m_editTextbox;
+	afx_msg void OnButtonOpenimage();
+	afx_msg void OnButtonSaveimage();
+	afx_msg void OnButtonSavetext();
 };
 
 #ifndef _DEBUG  // CapCRView.cpp의 디버그 버전
