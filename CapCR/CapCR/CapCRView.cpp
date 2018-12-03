@@ -64,6 +64,7 @@ void CCapCRView::DoDataExchange(CDataExchange* pDX)
 	//  DDX_Text(pDX, IDC_EDIT_OUTPUT_TXT, m_strOutput);
 	//  DDX_Text(pDX, IDC_EXPLAIN, m_message);
 	DDX_Text(pDX, IDC_EDIT_TEXT, m_strTextbox);
+	DDX_Control(pDX, IDC_EDIT_TEXT, m_editTextbox);
 }
 
 BOOL CCapCRView::PreCreateWindow(CREATESTRUCT& cs)
@@ -159,7 +160,7 @@ void CCapCRView::OnButtonCapture()
 	if (Image != NULL)
 		Image.Destroy();
 
-
+	int editbox_Height = 150;
 	CString imgName = _T("Desktop.jpg");
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 
@@ -197,6 +198,16 @@ void CCapCRView::OnButtonCapture()
 	int cx = nClipWidth;
 	int cy = nClipHeight;
 
+	SIZE s;
+	ZeroMemory(&s, sizeof(SIZE));
+	s.cx = (LONG)::GetSystemMetrics(SM_CXFULLSCREEN);
+	s.cy = (LONG)::GetSystemMetrics(SM_CYFULLSCREEN);
+
+
+	if ((s.cy * 0.5 < cy)) {
+		cx = cx * 0.5;
+		cy = cy * 0.5;
+	}
 
 
 	Image.Create(cx, cy, ScrDC.GetDeviceCaps(BITSPIXEL));
@@ -218,22 +229,23 @@ void CCapCRView::OnButtonCapture()
 	// staticSize->GetClientRect(rect2);
 	//Image.Load(imgName);
 
-	SIZE s;
-	ZeroMemory(&s, sizeof(SIZE));
-	s.cx = (LONG)::GetSystemMetrics(SM_CXFULLSCREEN);
-	s.cy = (LONG)::GetSystemMetrics(SM_CYFULLSCREEN);
 
 	Image.Save(imgName, Gdiplus::ImageFormatJPEG);
 
 	if (cx > 520 && cy > 300)
-		pFrame->SetWindowPos(NULL, (s.cx / 2) - cx / 2, 0, cx + 50, cy + 200, SWP_NOREPOSITION);
+		pFrame->SetWindowPos(NULL, (s.cx / 2) - (cx + 50) / 2, 0, cx + 50, cy + 200 + editbox_Height, SWP_NOREPOSITION);
 	else if (cx < 520 && cy < 300)
-		pFrame->SetWindowPos(NULL, s.cx / 2 - 260, 0, 570, 500, SWP_NOREPOSITION);
+		pFrame->SetWindowPos(NULL, s.cx / 2 - 285, 0, 570, 500+ editbox_Height, SWP_NOREPOSITION);
 	else if (cx < 520)
-		pFrame->SetWindowPos(NULL, (s.cx / 2) - 280, 0, 570, cy + 200, SWP_NOREPOSITION);
+		pFrame->SetWindowPos(NULL, (s.cx / 2) - 285, 0, 570, cy + 200+ editbox_Height, SWP_NOREPOSITION);
 	else
-		pFrame->SetWindowPos(NULL, s.cx / 2 - (cx / 2), 0, cx + 50, 500, SWP_NOREPOSITION);
+		pFrame->SetWindowPos(NULL, s.cx / 2 - ((cx + 50) / 2), 0, cx + 50, 500+ editbox_Height, SWP_NOREPOSITION);
 
+
+	// 바뀌는 다이얼로그에 따른 에디트 컨트롤 크기 및 위치조정
+	if(cx < 520)
+		m_editTextbox.MoveWindow(0, cy + 10, 520, editbox_Height);
+	else m_editTextbox.MoveWindow(0, cy +10, cx, editbox_Height);
 
 
 	// 창 투명화 해제

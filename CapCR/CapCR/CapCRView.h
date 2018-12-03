@@ -15,6 +15,7 @@
 #pragma once
 #include "atlimage.h"
 #include "CapCRDoc.h"
+#include "afxwin.h"
 
 
 class CCapCRView : public CFormView
@@ -67,6 +68,7 @@ public:
 	afx_msg void OnButtonCapture();
 	afx_msg void OnButtonRunocr();
 	CString m_strTextbox;
+	CEdit m_editTextbox;
 };
 
 #ifndef _DEBUG  // CapCRView.cpp의 디버그 버전
