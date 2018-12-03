@@ -290,6 +290,7 @@ void CCapCRView::OnButtonOpenimage()
 	char szFilter[] = " All Files(*.*)|*.*|";
 	sFilename = "";
 	CFileDialog dlg(TRUE, NULL, NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, (CString)szFilter, NULL);
+	
 	int cx, cy;
 	int editbox_Height = 150;
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
@@ -308,9 +309,27 @@ void CCapCRView::OnButtonOpenimage()
 
 		openImage.Load(sFilename);
 		
+		HRESULT hResult = Image.Load(sFilename);
+
+
+
+		// 오류처리
+
+		if (FAILED(hResult))
+		{
+			CString strtmp = _T("ERROR:Failed to load");
+			strtmp += sFilename + _T("\n");
+			TRACE(strtmp);
+			return;
+		}
+
+	
+
 		cx = openImage.GetWidth();
 		cy = openImage.GetHeight();
 		
+		
+
 		if (cx> 520 &&cy> 300)
 			pFrame->SetWindowPos(NULL, (s.cx / 2) - (cx + 50) / 2, 0, cx + 50, cy + 200 + editbox_Height, SWP_NOREPOSITION);
 		else if (cx < 520 && cy < 300)
@@ -337,9 +356,8 @@ void CCapCRView::OnButtonSaveimage()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	
-		
-
 	
+
 
 
 
