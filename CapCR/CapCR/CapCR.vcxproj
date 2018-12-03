@@ -222,6 +222,7 @@
     <Image Include="res\filesmall.bmp" />
     <Image Include="res\main.bmp" />
     <Image Include="res\main2.bmp" />
+    <Image Include="res\mainbutton.bmp" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
     <Image Include="res\writelarge.bmp" />

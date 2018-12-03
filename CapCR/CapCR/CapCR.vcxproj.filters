@@ -114,6 +114,9 @@
     <Image Include="..\..\..\..\Desktop\새 폴더\main2_zz9_icon.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="res\mainbutton.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\ribbon.mfcribbon-ms">

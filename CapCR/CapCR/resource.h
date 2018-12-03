@@ -37,18 +37,27 @@
 #define IDS_EDIT_MENU                   306
 #define IDR_RIBBON                      307
 #define IDD_CANVAS                      310
+#define IDB_BITMAP1                     326
 #define IDC_EDIT_TEXT                   1004
 #define ID_WRITE_PASTEASHYPERLINK       32770
 #define ID_BUTTON_CAPTURE               32774
 #define ID_BUTTON6                      32775
 #define ID_BUTTON_RUNOCR                32779
+#define ID_BUTTON_OPENIMAGE             32780
+#define ID_BUTTON_SAVETEXT              32781
+#define ID_BUTTON_SEARCH                32782
+#define ID_BUTTON_TRANSLATE             32783
+#define ID_BUTTON7                      32784
+#define ID_BUTTON8                      32785
+#define ID_BUTTON12                     32789
+#define ID_BUTTON_SAVEIMAGE             32791
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        323
-#define _APS_NEXT_COMMAND_VALUE         32780
+#define _APS_NEXT_RESOURCE_VALUE        327
+#define _APS_NEXT_COMMAND_VALUE         32794
 #define _APS_NEXT_CONTROL_VALUE         1005
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
