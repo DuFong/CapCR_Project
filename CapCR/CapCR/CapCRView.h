@@ -83,6 +83,7 @@ public:
 	afx_msg void OnUpdateCheckIgnoreSpace(CCmdUI *pCmdUI);
 	bool m_bIgnoreFix;
 	bool m_bIgnoreSpace;
+	afx_msg void OnButtonTranslate();
 };
 
 #ifndef _DEBUG  // CapCRView.cpp의 디버그 버전

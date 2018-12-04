@@ -25,6 +25,7 @@
 #include "CanvasDlg.h"
 #include "OCR.h"
 #include "ProgressDlg.h"
+#include "TranslateDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -49,6 +50,7 @@ BEGIN_MESSAGE_MAP(CCapCRView, CFormView)
 	ON_COMMAND(ID_CHECK_IGNORE_SPACE, &CCapCRView::OnCheckIgnoreSpace)
 	ON_UPDATE_COMMAND_UI(ID_CHECK_IGNORE_FIX, &CCapCRView::OnUpdateCheckIgnoreFix)
 	ON_UPDATE_COMMAND_UI(ID_CHECK_IGNORE_SPACE, &CCapCRView::OnUpdateCheckIgnoreSpace)
+	ON_COMMAND(ID_BUTTON_TRANSLATE, &CCapCRView::OnButtonTranslate)
 END_MESSAGE_MAP()
 
 // CCapCRView 생성/소멸
@@ -440,4 +442,12 @@ void CCapCRView::OnUpdateCheckIgnoreSpace(CCmdUI *pCmdUI)
 		pCmdUI->SetCheck(1);
 	else
 		pCmdUI->SetCheck(0);
+}
+
+
+void CCapCRView::OnButtonTranslate()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CTranslateDlg dlg;
+	dlg.DoModal();
 }
