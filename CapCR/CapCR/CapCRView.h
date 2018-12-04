@@ -73,7 +73,6 @@ public:
 //	CString m_strTextbox;
 //	CEdit m_editTextbox;
 	afx_msg void OnButtonOpenimage();
-	afx_msg void OnButtonSaveimage();
 	afx_msg void OnButtonSavetext();
 	COCR* ocr;
 	bool m_bOcrEmpty;

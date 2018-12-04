@@ -42,6 +42,10 @@
 #define IDD_TEXTBOX                     329
 #define IDD_TRANSLATE                   331
 #define IDD_SEARCH                      334
+#define IDB_BITMAP2                     339
+#define IDB_BITMAP3                     340
+#define IDB_BITMAP_NAVER                342
+#define IDB_BITMAP_GOOGLE               343
 #define IDC_EDIT_TEXT                   1004
 #define IDC_PROGRESS1                   1005
 #define IDC_EDIT_TEXTBOX                1006
@@ -68,8 +72,8 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        338
-#define _APS_NEXT_COMMAND_VALUE         32797
+#define _APS_NEXT_RESOURCE_VALUE        344
+#define _APS_NEXT_COMMAND_VALUE         32798
 #define _APS_NEXT_CONTROL_VALUE         1011
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

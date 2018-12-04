@@ -44,7 +44,6 @@ BEGIN_MESSAGE_MAP(CCapCRView, CFormView)
 	ON_COMMAND(ID_BUTTON_CAPTURE, &CCapCRView::OnButtonCapture)
 	ON_COMMAND(ID_BUTTON_RUNOCR, &CCapCRView::OnButtonRunocr)
 	ON_COMMAND(ID_BUTTON_OPENIMAGE, &CCapCRView::OnButtonOpenimage)
-	ON_COMMAND(ID_BUTTON_SAVEIMAGE, &CCapCRView::OnButtonSaveimage)
 	ON_COMMAND(ID_BUTTON_SAVETEXT, &CCapCRView::OnButtonSavetext)
 	ON_COMMAND(ID_CHECK_IGNORE_FIX, &CCapCRView::OnCheckIgnoreFix)
 	ON_COMMAND(ID_CHECK_IGNORE_SPACE, &CCapCRView::OnCheckIgnoreSpace)
@@ -289,6 +288,8 @@ void CCapCRView::OnButtonRunocr()
 		return;
 	}
 
+	SetCursor(AfxGetApp()->LoadStandardCursor(IDC_WAIT));
+
 	CProgressDlg *pDlg = new CProgressDlg;
 	pDlg->Create(IDD_PROGRESS, this);
 	pDlg->CenterWindow(this);
@@ -302,6 +303,8 @@ void CCapCRView::OnButtonRunocr()
 	pDlg->ShowWindow(SW_HIDE);
 	pDlg->DestroyWindow();
 	UpdateData(FALSE);
+
+	SetCursor(AfxGetApp()->LoadStandardCursor(IDC_ARROW));
 }
 
 
@@ -368,17 +371,6 @@ void CCapCRView::OnButtonOpenimage()
 
 }
 
-
-void CCapCRView::OnButtonSaveimage()
-{
-	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	
-	
-
-
-
-
-}
 
 
 void CCapCRView::OnButtonSavetext()

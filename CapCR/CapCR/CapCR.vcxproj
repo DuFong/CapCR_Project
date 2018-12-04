@@ -193,6 +193,7 @@
     <ClInclude Include="OCR.h" />
     <ClInclude Include="ProgressDlg.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SearchDlg.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextboxDlg.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OCR.cpp" />
     <ClCompile Include="ProgressDlg.cpp" />
+    <ClCompile Include="SearchDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -222,11 +224,15 @@
     <Image Include="..\..\..\..\Desktop\새 폴더\main2_zz9_icon.ico" />
     <Image Include="res\bitmap1.bmp" />
     <Image Include="res\bitmap2.bmp" />
+    <Image Include="res\button.bmp" />
     <Image Include="res\buttons.bmp" />
     <Image Include="res\CapCR.ico" />
     <Image Include="res\CapCRDoc.ico" />
+    <Image Include="res\fileimage.bmp" />
     <Image Include="res\filelarge.bmp" />
     <Image Include="res\filesmall.bmp" />
+    <Image Include="res\google.bmp" />
+    <Image Include="res\KakaoTalk_20181204_231457231.bmp" />
     <Image Include="res\main.bmp" />
     <Image Include="res\main2.bmp" />
     <Image Include="res\mainbutton.bmp" />
