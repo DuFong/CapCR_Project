@@ -16,6 +16,7 @@
 #include "CapCR.h"
 
 #include "MainFrm.h"
+#include "CapCRView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -29,11 +30,13 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_WM_CREATE()
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
+	ON_WM_MOVE()
 END_MESSAGE_MAP()
 
 // CMainFrame 생성/소멸
 
 CMainFrame::CMainFrame()
+	: m_bCreated(false)
 {
 	// TODO: 여기에 멤버 초기화 코드를 추가합니다.
 	theApp.m_nAppLook = theApp.GetInt(_T("ApplicationLook"), ID_VIEW_APPLOOK_VS_2008);
@@ -178,3 +181,22 @@ void CMainFrame::OnUpdateApplicationLook(CCmdUI* pCmdUI)
 	pCmdUI->SetRadio(theApp.m_nAppLook == pCmdUI->m_nID);
 }
 
+
+
+void CMainFrame::OnMove(int x, int y)
+{
+	CFrameWndEx::OnMove(x, y);
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	if (m_bCreated)
+	{
+		CCapCRView* pView = (CCapCRView*)((CMainFrame*)AfxGetMainWnd())->GetActiveView();
+		CRect rect;
+
+		if (!pView->m_bOcrEmpty)
+		{
+			this->GetClientRect(rect);
+			pView->ocr->textbox->SetWindowPos(NULL, rect.left + x, rect.bottom + y, 0, 0, SWP_NOSIZE);
+		}
+	}
+}
