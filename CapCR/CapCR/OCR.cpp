@@ -698,6 +698,8 @@ void COCR::StoreLetterToTextFile(CString outFileName)
 	CString strResult;
 	strResult.Format(_T(""));
 
+	CCapCRView* pView = (CCapCRView*)((CMainFrame*)AfxGetMainWnd())->GetActiveView();
+
 	/*	CString a, b, c;
 	a.Format(_T("%d"), allData.data[5].rect.start.y);
 	b.Format(_T("%d"), allData.data[5].rect.end.y);
@@ -720,13 +722,13 @@ void COCR::StoreLetterToTextFile(CString outFileName)
 			strResult += chr2str;
 		}
 
-		if (allData.data[i + 1].isFixed)		// 개행 삽입
+		if (allData.data[i + 1].isFixed && !pView->m_bIgnoreFix)		// 개행 삽입
 		{
 			fputc('\n', fp);
-			strResult += "\n";
+			strResult += "\r\n";
 		}
 
-		if (allData.data[i + 1].isSpaced)		// 공백 삽입
+		if (allData.data[i + 1].isSpaced && !pView->m_bIgnoreSpace)		// 공백 삽입
 		{
 			fputc(' ', fp);
 			strResult += " ";

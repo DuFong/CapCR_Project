@@ -45,6 +45,10 @@ BEGIN_MESSAGE_MAP(CCapCRView, CFormView)
 	ON_COMMAND(ID_BUTTON_OPENIMAGE, &CCapCRView::OnButtonOpenimage)
 	ON_COMMAND(ID_BUTTON_SAVEIMAGE, &CCapCRView::OnButtonSaveimage)
 	ON_COMMAND(ID_BUTTON_SAVETEXT, &CCapCRView::OnButtonSavetext)
+	ON_COMMAND(ID_CHECK_IGNORE_FIX, &CCapCRView::OnCheckIgnoreFix)
+	ON_COMMAND(ID_CHECK_IGNORE_SPACE, &CCapCRView::OnCheckIgnoreSpace)
+	ON_UPDATE_COMMAND_UI(ID_CHECK_IGNORE_FIX, &CCapCRView::OnUpdateCheckIgnoreFix)
+	ON_UPDATE_COMMAND_UI(ID_CHECK_IGNORE_SPACE, &CCapCRView::OnUpdateCheckIgnoreSpace)
 END_MESSAGE_MAP()
 
 // CCapCRView 생성/소멸
@@ -53,6 +57,8 @@ CCapCRView::CCapCRView()
 	: CFormView(IDD_CAPCR_FORM)
 	, ocr(NULL)
 	, m_bOcrEmpty(true)
+	, m_bIgnoreFix(false)
+	, m_bIgnoreSpace(false)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 
@@ -270,6 +276,13 @@ void CCapCRView::OnButtonCapture()
 void CCapCRView::OnButtonRunocr()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+	if (Image == NULL)
+	{
+		AfxMessageBox(_T("변환할 이미지가 없습니다."));
+		return;
+	}
+
 	CProgressDlg *pDlg = new CProgressDlg;
 	pDlg->Create(IDD_PROGRESS, this);
 	pDlg->CenterWindow(this);
@@ -386,4 +399,44 @@ void CCapCRView::OnButtonSavetext()
 		file.Close();
 	}
 
+}
+
+
+void CCapCRView::OnCheckIgnoreFix()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (!m_bIgnoreFix)
+		m_bIgnoreFix = true;
+	else
+		m_bIgnoreFix = false;
+}
+
+
+void CCapCRView::OnCheckIgnoreSpace()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (!m_bIgnoreSpace)
+		m_bIgnoreSpace = true;
+	else
+		m_bIgnoreSpace = false;
+}
+
+
+void CCapCRView::OnUpdateCheckIgnoreFix(CCmdUI *pCmdUI)
+{
+	// TODO: 여기에 명령 업데이트 UI 처리기 코드를 추가합니다.
+	if (m_bIgnoreFix)
+		pCmdUI->SetCheck(1);
+	else
+		pCmdUI->SetCheck(0);
+}
+
+
+void CCapCRView::OnUpdateCheckIgnoreSpace(CCmdUI *pCmdUI)
+{
+	// TODO: 여기에 명령 업데이트 UI 처리기 코드를 추가합니다.
+	if (m_bIgnoreSpace)
+		pCmdUI->SetCheck(1);
+	else
+		pCmdUI->SetCheck(0);
 }

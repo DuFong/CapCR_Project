@@ -77,6 +77,12 @@ public:
 	afx_msg void OnButtonSavetext();
 	COCR* ocr;
 	bool m_bOcrEmpty;
+	afx_msg void OnCheckIgnoreFix();
+	afx_msg void OnCheckIgnoreSpace();
+	afx_msg void OnUpdateCheckIgnoreFix(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateCheckIgnoreSpace(CCmdUI *pCmdUI);
+	bool m_bIgnoreFix;
+	bool m_bIgnoreSpace;
 };
 
 #ifndef _DEBUG  // CapCRView.cpp의 디버그 버전

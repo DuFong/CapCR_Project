@@ -26,4 +26,5 @@ public:
 	CString m_strTextbox;
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	CFont m_font;
 };

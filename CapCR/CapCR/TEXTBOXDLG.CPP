@@ -57,6 +57,11 @@ BOOL CTextboxDlg::OnInitDialog()
 	// 표시위치 지정
 	SetWindowPos(NULL, pos.x + 7, pos.y-7, 0, 0, SWP_NOSIZE);
 
+	// 폰트 설정
+//	m_font.CreatePointFont(150, "굴림");
+	m_font.CreateFontA(21, 9, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_CHARACTER_PRECIS, PROOF_QUALITY, DEFAULT_PITCH, _T("한컴 윤체 M"));
+	m_editTextbox.SetFont(&m_font);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
