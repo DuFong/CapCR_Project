@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ProgressDlg.h"
+
 #define MAX_COUNT_STANDARD				80			// 기본 이미지 데이터의 최대 개수
 #define MAX_COUNT_DATA							2000		// 사진 이미지에서 최대 문자 수
 #define RANGE_OF_COLOR_TO_CHECK		130		// 문자 색을 인식하기 위한 값
@@ -63,19 +65,19 @@ public:
 	~COCR();
 
 	void CreateStandard(CImage* newImage);
-	void ParsingStepFirst();
-	void ParsingStepSecond(int yTop, int yBottom);
-	void ParsingStepThird(Rect* rect);
+	void ParsingStepFirst(CProgressDlg* pDlg);
+	void ParsingStepSecond(int yTop, int yBottom, CProgressDlg* pDlg);
+	void ParsingStepThird(Rect* rect, CProgressDlg* pDlg);
 	void PrintImageToFile(int fileNo, Rect* rect);
-	void ParsingStepThird2(Rect* rect);
-	void MakeImageData();
+	void ParsingStepThird2(Rect* rect, CProgressDlg* pDlg);
+	void MakeImageData(CProgressDlg* pDlg);
 	void PrintImageDataToFile(int fileNo, Letter* letter);
 	//	void PrintEveryImageDataInTextFile(char* fileName);
 	//	void GetStandardImageDataFromTextFile(char* fileName);
 	void PrintAllStandardImageToTextFile(char* fileName);
 	void PrintEveryImageDataInBinaryFile(char* fileName);
 	void GetStandardImageDataFromBinaryFile(char* fileName);
-	void RunOCR(CImage* newImage, CString outFileName, int colorLetter);
+	void RunOCR(CImage* newImage, CString outFileName, CProgressDlg* pDlg);
 	void FindLetterValue();
 	void StoreLetterToTextFile(CString outFileName);
 	void AddSpaceValue();

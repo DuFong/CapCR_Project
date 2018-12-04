@@ -2,6 +2,7 @@
 #include "OCR.h"
 #include "CapCRView.h"
 #include "MainFrm.h"
+#include "ProgressDlg.h"
 #include <fstream>
 
 using namespace std;
@@ -68,8 +69,8 @@ void COCR::CreateStandard(CImage* newImage)		// 기본 이미지 데이터를 만들어 텍스
 	image = newImage;
 	colorToCheck = 50;
 
-	ParsingStepFirst();
-	MakeImageData();
+	//ParsingStepFirst();
+//	MakeImageData();
 
 	int i = 0;
 	for (i = 0; i < 26; i++)
@@ -86,7 +87,7 @@ void COCR::CreateStandard(CImage* newImage)		// 기본 이미지 데이터를 만들어 텍스
 }
 
 
-void COCR::ParsingStepFirst()		// 전체 이미지에 대하여 라인을 구분
+void COCR::ParsingStepFirst(CProgressDlg* pDlg)		// 전체 이미지에 대하여 라인을 구분
 {
 	allData.count = 0;
 	data = &allData.data[0];
@@ -105,6 +106,9 @@ void COCR::ParsingStepFirst()		// 전체 이미지에 대하여 라인을 구분
 
 	flagPrevLine = false;
 
+	pDlg->m_progressBar.SetRange(0, yMax);
+	pDlg->m_progressBar.SetPos(0);
+
 	for (y = 0; y < yMax; y++)
 	{
 		isLetterLine = false;
@@ -119,7 +123,7 @@ void COCR::ParsingStepFirst()		// 전체 이미지에 대하여 라인을 구분
 				break;
 			}
 		}
-
+		
 		if (isLetterLine)
 		{
 			if (!flagPrevLine)
@@ -130,16 +134,18 @@ void COCR::ParsingStepFirst()		// 전체 이미지에 대하여 라인을 구분
 			if (flagPrevLine)
 			{
 				yBottom = y - 1;
-				ParsingStepSecond(yTop, yBottom);
+				ParsingStepSecond(yTop, yBottom, pDlg);
 			}
 		}
 
 		flagPrevLine = isLetterLine;
+		if (y % 2 == 0)
+			pDlg->m_progressBar.SetPos(pDlg->m_progressBar.GetPos() + 1);
 	}
 }
 
 
-void COCR::ParsingStepSecond(int yTop, int yBottom)		// 하나의 라인에 대해 개별 문자를 나누는 작업
+void COCR::ParsingStepSecond(int yTop, int yBottom, CProgressDlg* pDlg)		// 하나의 라인에 대해 개별 문자를 나누는 작업
 {
 	int xMax = image->GetWidth();
 
@@ -180,9 +186,9 @@ void COCR::ParsingStepSecond(int yTop, int yBottom)		// 하나의 라인에 대해 개별 
 				data->rect.end.x = x - 1;
 				data->rect.end.y = yBottom;
 
-				ParsingStepThird(&data->rect);
-				ParsingStepThird2(&data->rect);
-				ParsingStepThird(&data->rect);
+				ParsingStepThird(&data->rect, pDlg);
+				ParsingStepThird2(&data->rect, pDlg);
+				ParsingStepThird(&data->rect, pDlg);
 
 				allData.count += 1;
 				data = &allData.data[allData.count];
@@ -195,7 +201,7 @@ void COCR::ParsingStepSecond(int yTop, int yBottom)		// 하나의 라인에 대해 개별 
 }
 
 
-void COCR::ParsingStepThird(Rect* rect)		// 한 문자의 사각형(세로 보정 작업)
+void COCR::ParsingStepThird(Rect* rect, CProgressDlg* pDlg)		// 한 문자의 사각형(세로 보정 작업)
 {
 	int x, y;
 	COLORREF rgb;
@@ -238,7 +244,6 @@ void COCR::ParsingStepThird(Rect* rect)		// 한 문자의 사각형(세로 보정 작업)
 		if (isLetterLine)
 			break;
 	}
-
 	// Letter Bottom
 	for (y = rect->end.y; ; y++)
 	{
@@ -307,7 +312,7 @@ void COCR::PrintImageToFile(int fileNo, Rect* rect)
 }
 
 
-void COCR::ParsingStepThird2(Rect* rect)
+void COCR::ParsingStepThird2(Rect* rect, CProgressDlg* pDlg)
 {
 	int x, y;
 	COLORREF rgb;
@@ -350,7 +355,6 @@ void COCR::ParsingStepThird2(Rect* rect)
 		if (isLetterLine)
 			break;
 	}
-
 	// Letter Right
 	for (x = rect->end.x; ; x++)
 	{
@@ -391,9 +395,11 @@ void COCR::ParsingStepThird2(Rect* rect)
 }
 
 
-void COCR::MakeImageData()		// 이미지 데이터 만들기
+void COCR::MakeImageData(CProgressDlg* pDlg)		// 이미지 데이터 만들기
 {
 	int i, j;
+	pDlg->m_progressBar.SetRange(0, allData.count);
+	pDlg->m_progressBar.SetPos(allData.count / 2 + 1);
 
 	for (i = 0; i < allData.count; i++)
 	{
@@ -425,6 +431,8 @@ void COCR::MakeImageData()		// 이미지 데이터 만들기
 				}
 			}
 		}
+		if (i % 2 == 1)
+			pDlg->m_progressBar.SetPos(pDlg->m_progressBar.GetPos() + 1);
 	}
 }
 
@@ -611,10 +619,10 @@ void COCR::GetStandardImageDataFromBinaryFile(char* fileName)
 }
 
 
-void COCR::RunOCR(CImage* newImage, CString outFileName, int colorLetter)
+void COCR::RunOCR(CImage* newImage, CString outFileName, CProgressDlg* pDlg)
 {
 	image = newImage;
-	colorToCheck = colorLetter;
+	colorToCheck = 50;
 
 	for (int i = 0; i < MAX_COUNT_DATA; i++)
 	{
@@ -623,8 +631,8 @@ void COCR::RunOCR(CImage* newImage, CString outFileName, int colorLetter)
 		allData.data[i].isDeleted = false;
 	}
 
-	ParsingStepFirst();		// 문자를 자르기
-	MakeImageData();		// 자른 문자들을 텍스트화
+	ParsingStepFirst(pDlg);		// 문자를 자르기
+	MakeImageData(pDlg);		// 자른 문자들을 텍스트화
 
 	FindLetterValue();
 	AddSpaceValue();

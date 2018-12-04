@@ -24,6 +24,7 @@
 #include "MainFrm.h"
 #include "CanvasDlg.h"
 #include "OCR.h"
+#include "ProgressDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -279,8 +280,15 @@ void CCapCRView::OnButtonCapture()
 void CCapCRView::OnButtonRunocr()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CProgressDlg *pDlg = new CProgressDlg;
+	pDlg->Create(IDD_PROGRESS, this);
+	pDlg->CenterWindow(this);
+	pDlg->ShowWindow(SW_SHOW);
+
 	COCR *ocr = new COCR();
-	ocr->RunOCR(&Image, "ConvertedText.txt", 50);
+	ocr->RunOCR(&Image, "ConvertedText.txt", pDlg);
+	pDlg->ShowWindow(SW_HIDE);
+	pDlg->DestroyWindow();
 	UpdateData(FALSE);
 }
 
