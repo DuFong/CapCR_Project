@@ -12,7 +12,7 @@
 IMPLEMENT_DYNAMIC(CTranslateDlg, CDialogEx)
 
 CTranslateDlg::CTranslateDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(IDD_DIALOG_TRANSLATE, pParent)
+	: CDialogEx(IDD_TRANSLATE, pParent)
 {
 
 }

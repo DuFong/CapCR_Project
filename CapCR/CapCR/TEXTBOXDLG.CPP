@@ -48,7 +48,7 @@ BOOL CTextboxDlg::OnInitDialog()
 	CPoint parentSize;
 	parentSize.x = rectParent.right - rectParent.left;
 	parentSize.y = rectParent.bottom - rectParent.top;
-	SetWindowPos(NULL, 0, 0, parentSize.x-13, 150, SWP_NOREPOSITION);
+	SetWindowPos(NULL, 0, 0, parentSize.x-17, 150, SWP_NOREPOSITION);
 	GetClientRect(&rect); // 출력할 다이얼로그의 영역을 얻는다.
 	CPoint pos;
 
@@ -57,7 +57,7 @@ BOOL CTextboxDlg::OnInitDialog()
 	pos.y = parentSize.y;
 
 	// 표시위치 지정
-	SetWindowPos(NULL, pos.x + 7, pos.y-7, 0, 0, SWP_NOSIZE);
+	SetWindowPos(NULL, pos.x + 8, pos.y - 9, 0, 0, SWP_NOSIZE);
 
 	// 폰트 설정
 //	m_font.CreatePointFont(150, "굴림");

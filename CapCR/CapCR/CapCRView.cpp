@@ -82,6 +82,8 @@ BOOL CCapCRView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: CREATESTRUCT cs를 수정하여 여기에서
 	//  Window 클래스 또는 스타일을 수정합니다.
+	//CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+	
 	return CFormView::PreCreateWindow(cs);
 }
 
@@ -92,6 +94,7 @@ void CCapCRView::OnInitialUpdate()
 	ResizeParentToFit();
 
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+	pFrame->SetWindowPos(NULL, 0, 0, 560, 500, SWP_NOMOVE);
 	pFrame->m_bCreated = true;
 }
 
@@ -245,14 +248,14 @@ void CCapCRView::OnButtonCapture()
 
 	Image.Save(imgName, Gdiplus::ImageFormatJPEG);
 
-	if (cx > 520 && cy > 300)
+	if (cx > 560 && cy > 300)
 		pFrame->SetWindowPos(NULL, (s.cx / 2) - (cx + 50) / 2, 0, cx + 30, cy + 170, SWP_NOREPOSITION);
-	else if (cx < 520 && cy < 300) {
-		pFrame->SetWindowPos(NULL, s.cx / 2 - 285, 0, 520, 500, SWP_NOREPOSITION);
+	else if (cx < 560 && cy < 300) {
+		pFrame->SetWindowPos(NULL, s.cx / 2 - 285, 0, 560, 500, SWP_NOREPOSITION);
 		Invalidate();
 	}
-	else if (cx < 520)
-		pFrame->SetWindowPos(NULL, (s.cx / 2) - 285, 0, 520, cy + 170, SWP_NOREPOSITION);
+	else if (cx < 560)
+		pFrame->SetWindowPos(NULL, (s.cx / 2) - 285, 0, 560, cy + 170, SWP_NOREPOSITION);
 	else
 		pFrame->SetWindowPos(NULL, s.cx / 2 - ((cx + 50) / 2), 0, cx + 30, 500, SWP_NOREPOSITION);
 
@@ -346,14 +349,14 @@ void CCapCRView::OnButtonOpenimage()
 		
 		
 
-		if (cx> 520 &&cy> 300)
+		if (cx> 560 &&cy> 300)
 			pFrame->SetWindowPos(NULL, (s.cx / 2) - (cx + 50) / 2, 0, cx + 50, cy + 200, SWP_NOREPOSITION);
-		else if (cx < 520 && cy < 300) {
-			pFrame->SetWindowPos(NULL, s.cx / 2 - 285, 0, 570, 500, SWP_NOREPOSITION);
+		else if (cx < 560 && cy < 300) {
+			pFrame->SetWindowPos(NULL, s.cx / 2 - 285, 0, 560, 500, SWP_NOREPOSITION);
 			Invalidate();
 		}
-		else if (cx < 520)
-			pFrame->SetWindowPos(NULL, (s.cx / 2) - 285, 0, 570, cy + 200, SWP_NOREPOSITION);
+		else if (cx < 560)
+			pFrame->SetWindowPos(NULL, (s.cx / 2) - 285, 0, 560, cy + 200, SWP_NOREPOSITION);
 		else
 			pFrame->SetWindowPos(NULL, s.cx / 2 - ((cx + 50) / 2), 0, cx + 50, 500, SWP_NOREPOSITION);
 

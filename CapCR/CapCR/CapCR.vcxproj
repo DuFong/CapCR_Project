@@ -221,6 +221,7 @@
   <ItemGroup>
     <Image Include="..\..\..\..\Desktop\새 폴더\main2_zz9_icon.ico" />
     <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bitmap2.bmp" />
     <Image Include="res\buttons.bmp" />
     <Image Include="res\CapCR.ico" />
     <Image Include="res\CapCRDoc.ico" />
@@ -229,6 +230,7 @@
     <Image Include="res\main.bmp" />
     <Image Include="res\main2.bmp" />
     <Image Include="res\mainbutton.bmp" />
+    <Image Include="res\Naver.bmp" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
     <Image Include="res\writelarge.bmp" />
