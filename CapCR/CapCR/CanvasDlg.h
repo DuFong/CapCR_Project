@@ -35,4 +35,5 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	RECT GetClipRect();
 	bool m_bLButtonDowned;
+	HCURSOR m_cursor;
 };

@@ -61,7 +61,9 @@ BOOL CanvasDlg::OnInitDialog()
 	::SetWindowPos(GetSafeHwnd(), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
-	
+	m_cursor = AfxGetApp()->LoadStandardCursor(IDC_CROSS);
+	SetCapture();
+	SetCursor(m_cursor);
 
 	CDialog::OnInitDialog();
 	return TRUE;  // return TRUE unless you set the focus to a control
