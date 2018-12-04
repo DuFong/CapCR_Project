@@ -16,6 +16,7 @@
 #include "atlimage.h"
 #include "CapCRDoc.h"
 #include "afxwin.h"
+#include "OCR.h"
 
 
 class CCapCRView : public CFormView
@@ -69,11 +70,13 @@ public:
 	afx_msg void OnPaint();
 	afx_msg void OnButtonCapture();
 	afx_msg void OnButtonRunocr();
-	CString m_strTextbox;
-	CEdit m_editTextbox;
+//	CString m_strTextbox;
+//	CEdit m_editTextbox;
 	afx_msg void OnButtonOpenimage();
 	afx_msg void OnButtonSaveimage();
 	afx_msg void OnButtonSavetext();
+	COCR* ocr;
+	bool m_bOcrEmpty;
 };
 
 #ifndef _DEBUG  // CapCRView.cpp의 디버그 버전

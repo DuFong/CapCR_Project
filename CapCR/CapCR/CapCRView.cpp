@@ -51,7 +51,8 @@ END_MESSAGE_MAP()
 
 CCapCRView::CCapCRView()
 	: CFormView(IDD_CAPCR_FORM)
-	, m_strTextbox(_T(""))
+	, ocr(NULL)
+	, m_bOcrEmpty(true)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 
@@ -67,8 +68,6 @@ void CCapCRView::DoDataExchange(CDataExchange* pDX)
 	//  DDX_Text(pDX, IDC_EDIT_INPUT_IMG, m_strInput);
 	//  DDX_Text(pDX, IDC_EDIT_OUTPUT_TXT, m_strOutput);
 	//  DDX_Text(pDX, IDC_EXPLAIN, m_message);
-	DDX_Text(pDX, IDC_EDIT_TEXT, m_strTextbox);
-	DDX_Control(pDX, IDC_EDIT_TEXT, m_editTextbox);
 }
 
 BOOL CCapCRView::PreCreateWindow(CREATESTRUCT& cs)
@@ -171,7 +170,6 @@ void CCapCRView::OnButtonCapture()
 	if (Image != NULL)
 		Image.Destroy();
 
-	int editbox_Height = 150;
 	CString imgName = _T("Desktop.jpg");
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 
@@ -215,11 +213,6 @@ void CCapCRView::OnButtonCapture()
 	s.cy = (LONG)::GetSystemMetrics(SM_CYFULLSCREEN);
 
 
-	if ((s.cy * 0.5 < cy)) {
-		cx = cx * 0.5;
-		cy = cy * 0.5;
-	}
-
 
 	Image.Create(cx, cy, ScrDC.GetDeviceCaps(BITSPIXEL));
 
@@ -244,19 +237,16 @@ void CCapCRView::OnButtonCapture()
 	Image.Save(imgName, Gdiplus::ImageFormatJPEG);
 
 	if (cx > 520 && cy > 300)
-		pFrame->SetWindowPos(NULL, (s.cx / 2) - (cx + 50) / 2, 0, cx + 50, cy + 200 + editbox_Height, SWP_NOREPOSITION);
-	else if (cx < 520 && cy < 300)
-		pFrame->SetWindowPos(NULL, s.cx / 2 - 285, 0, 570, 500+ editbox_Height, SWP_NOREPOSITION);
+		pFrame->SetWindowPos(NULL, (s.cx / 2) - (cx + 50) / 2, 0, cx + 30, cy + 170, SWP_NOREPOSITION);
+	else if (cx < 520 && cy < 300) {
+		pFrame->SetWindowPos(NULL, s.cx / 2 - 285, 0, 520, 500, SWP_NOREPOSITION);
+		Invalidate();
+	}
 	else if (cx < 520)
-		pFrame->SetWindowPos(NULL, (s.cx / 2) - 285, 0, 570, cy + 200+ editbox_Height, SWP_NOREPOSITION);
+		pFrame->SetWindowPos(NULL, (s.cx / 2) - 285, 0, 520, cy + 170, SWP_NOREPOSITION);
 	else
-		pFrame->SetWindowPos(NULL, s.cx / 2 - ((cx + 50) / 2), 0, cx + 50, 500+ editbox_Height, SWP_NOREPOSITION);
+		pFrame->SetWindowPos(NULL, s.cx / 2 - ((cx + 50) / 2), 0, cx + 30, 500, SWP_NOREPOSITION);
 
-
-	// 바뀌는 다이얼로그에 따른 에디트 컨트롤 크기 및 위치조정
-	if(cx < 520)
-		m_editTextbox.MoveWindow(0, cy + 10, 520, editbox_Height);
-	else m_editTextbox.MoveWindow(0, cy +10, cx, editbox_Height);
 
 
 	// 창 투명화 해제
@@ -284,9 +274,12 @@ void CCapCRView::OnButtonRunocr()
 	pDlg->Create(IDD_PROGRESS, this);
 	pDlg->CenterWindow(this);
 	pDlg->ShowWindow(SW_SHOW);
-
-	COCR *ocr = new COCR();
+	
+	if (m_bOcrEmpty == FALSE)
+		ocr->DestroyTextDialog();
+	ocr = new COCR();
 	ocr->RunOCR(&Image, "ConvertedText.txt", pDlg);
+	m_bOcrEmpty = FALSE;
 	pDlg->ShowWindow(SW_HIDE);
 	pDlg->DestroyWindow();
 	UpdateData(FALSE);
@@ -300,7 +293,6 @@ void CCapCRView::OnButtonOpenimage()
 	CFileDialog dlg(TRUE, NULL, NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, (CString)szFilter, NULL);
 	
 	int cx, cy;
-	int editbox_Height = 150;
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 	SIZE s;
 	ZeroMemory(&s, sizeof(SIZE));
@@ -339,17 +331,15 @@ void CCapCRView::OnButtonOpenimage()
 		
 
 		if (cx> 520 &&cy> 300)
-			pFrame->SetWindowPos(NULL, (s.cx / 2) - (cx + 50) / 2, 0, cx + 50, cy + 200 + editbox_Height, SWP_NOREPOSITION);
-		else if (cx < 520 && cy < 300)
-			pFrame->SetWindowPos(NULL, s.cx / 2 - 285, 0, 570, 500 + editbox_Height, SWP_NOREPOSITION);
+			pFrame->SetWindowPos(NULL, (s.cx / 2) - (cx + 50) / 2, 0, cx + 50, cy + 200, SWP_NOREPOSITION);
+		else if (cx < 520 && cy < 300) {
+			pFrame->SetWindowPos(NULL, s.cx / 2 - 285, 0, 570, 500, SWP_NOREPOSITION);
+			Invalidate();
+		}
 		else if (cx < 520)
-			pFrame->SetWindowPos(NULL, (s.cx / 2) - 285, 0, 570, cy + 200 + editbox_Height, SWP_NOREPOSITION);
+			pFrame->SetWindowPos(NULL, (s.cx / 2) - 285, 0, 570, cy + 200, SWP_NOREPOSITION);
 		else
-			pFrame->SetWindowPos(NULL, s.cx / 2 - ((cx + 50) / 2), 0, cx + 50, 500 + editbox_Height, SWP_NOREPOSITION);
-
-		if (cx < 520)
-			m_editTextbox.MoveWindow(0, cy + 10, 520, editbox_Height);
-		else m_editTextbox.MoveWindow(0, cy + 10, cx, editbox_Height);
+			pFrame->SetWindowPos(NULL, s.cx / 2 - ((cx + 50) / 2), 0, cx + 50, 500, SWP_NOREPOSITION);
 
 		
 
@@ -391,7 +381,7 @@ void CCapCRView::OnButtonSavetext()
 		file.Open(m_strPath, CFile::modeCreate | CFile::modeReadWrite, &ex);
 		// 에디트 박스에 있는 것을 저장한다. 
 		UpdateData(TRUE);
-		file.WriteString(m_strTextbox);
+		//file.WriteString(m_strTextbox);
 		// 종료한다. 
 		file.Close();
 	}

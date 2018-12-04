@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ProgressDlg.h"
+#include "TextboxDlg.h"
 
 #define MAX_COUNT_STANDARD				80			// 기본 이미지 데이터의 최대 개수
 #define MAX_COUNT_DATA							2000		// 사진 이미지에서 최대 문자 수
@@ -91,5 +92,8 @@ public:
 	void ChangeBigToSmallLetter(char* value);
 	void ChangeSmallToBigLetter(char* value);
 	void CheckBigSmallLetter();
+	CTextboxDlg* textbox;
+	bool m_bTextboxEmpty;
+	void DestroyTextDialog();
 };
 

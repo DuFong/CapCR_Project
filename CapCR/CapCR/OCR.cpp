@@ -4,11 +4,14 @@
 #include "MainFrm.h"
 #include "ProgressDlg.h"
 #include <fstream>
-
+#include "TextboxDlg.h"
+#include "resource.h"
 using namespace std;
 
 
 COCR::COCR()
+	: textbox(NULL)
+	, m_bTextboxEmpty(true)
 {
 	GetStandardImageDataFromBinaryFile("standard.bin");
 
@@ -733,9 +736,16 @@ void COCR::StoreLetterToTextFile(CString outFileName)
 		//	PrintImageToFile(i, &allData.data[i].rect);
 	}
 	fclose(fp);
-
-	CCapCRView* pView = (CCapCRView*)((CMainFrame*)AfxGetMainWnd())->GetActiveView();
-	pView->m_strTextbox.SetString(strResult);
+	
+	textbox = new CTextboxDlg();
+	textbox->m_strTextbox.SetString(strResult);
+	if (textbox->m_strTextbox.IsEmpty() == FALSE) {
+		textbox->Create(IDD_TEXTBOX);
+		m_bTextboxEmpty = FALSE;
+		textbox->ShowWindow(SW_SHOW);
+	}
+	else
+		AfxMessageBox(_T("텍스트 변환에 실패하였습니다."));
 }
 
 
@@ -989,4 +999,11 @@ void COCR::CheckBigSmallLetter()		// 대소문자 확인
 			}
 		}
 	}
+}
+
+
+void COCR::DestroyTextDialog()
+{
+		textbox->ShowWindow(SW_HIDE);
+		textbox->DestroyWindow();
 }

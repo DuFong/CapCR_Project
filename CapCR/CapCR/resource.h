@@ -39,8 +39,10 @@
 #define IDD_CANVAS                      310
 #define IDB_BITMAP1                     326
 #define IDD_PROGRESS                    327
+#define IDD_TEXTBOX                     329
 #define IDC_EDIT_TEXT                   1004
 #define IDC_PROGRESS1                   1005
+#define IDC_EDIT_TEXTBOX                1006
 #define ID_WRITE_PASTEASHYPERLINK       32770
 #define ID_BUTTON_CAPTURE               32774
 #define ID_BUTTON6                      32775
@@ -58,9 +60,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        329
+#define _APS_NEXT_RESOURCE_VALUE        331
 #define _APS_NEXT_COMMAND_VALUE         32794
-#define _APS_NEXT_CONTROL_VALUE         1006
+#define _APS_NEXT_CONTROL_VALUE         1007
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
