@@ -329,6 +329,8 @@ void CCapCRView::OnButtonOpenimage()
 		sFilename = dlg.GetPathName();
 		if (!openImage.IsNull())
 			openImage.Destroy();
+		if (!Image.IsNull())
+			Image.Destroy();
 
 
 		openImage.Load(sFilename);
