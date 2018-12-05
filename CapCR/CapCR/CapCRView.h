@@ -84,6 +84,9 @@ public:
 	bool m_bIgnoreSpace;
 	afx_msg void OnButtonTranslate();
 	afx_msg void OnButtonSearch();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+//	COCR GetOcrObject();
+	COCR* GetOcrObject();
 };
 
 #ifndef _DEBUG  // CapCRView.cpp의 디버그 버전

@@ -36,4 +36,5 @@ public:
 	RECT GetClipRect();
 	bool m_bLButtonDowned;
 	HCURSOR m_cursor;
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

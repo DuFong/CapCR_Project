@@ -173,6 +173,8 @@ protected:
 // 구현입니다.
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+//	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -214,6 +216,4 @@ void CCapCRApp::SaveCustomState()
 }
 
 // CCapCRApp 메시지 처리기
-
-
 

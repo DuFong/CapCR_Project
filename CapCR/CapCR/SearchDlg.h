@@ -25,4 +25,6 @@ public:
 	CBitmapButton m_btNaver;
 	CBitmapButton m_btGoogle;
 	virtual BOOL OnInitDialog();
+	afx_msg void OnClickedButtonNaver();
+	afx_msg void OnClickedButtonGoogle();
 };

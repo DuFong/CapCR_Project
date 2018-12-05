@@ -52,6 +52,7 @@ BEGIN_MESSAGE_MAP(CCapCRView, CFormView)
 	ON_UPDATE_COMMAND_UI(ID_CHECK_IGNORE_SPACE, &CCapCRView::OnUpdateCheckIgnoreSpace)
 	ON_COMMAND(ID_BUTTON_TRANSLATE, &CCapCRView::OnButtonTranslate)
 	ON_COMMAND(ID_BUTTON_SEARCH, &CCapCRView::OnButtonSearch)
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 // CCapCRView 생성/소멸
@@ -182,6 +183,8 @@ void CCapCRView::OnButtonCapture()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	if (Image != NULL)
 		Image.Destroy();
+	if (openImage != NULL)
+		openImage.Destroy();
 
 	CString imgName = _T("Desktop.jpg");
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
@@ -473,4 +476,23 @@ void CCapCRView::OnButtonSearch()
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	CSearchDlg dlg;
 	dlg.DoModal();
+}
+
+
+BOOL CCapCRView::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CRect rect;
+	GetClientRect(rect);
+	pDC->FillSolidRect(rect, RGB(255, 255, 255));
+
+	return TRUE;
+}
+
+
+
+
+COCR* CCapCRView::GetOcrObject()
+{
+	return ocr;
 }
