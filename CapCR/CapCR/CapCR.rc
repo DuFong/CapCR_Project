@@ -73,7 +73,9 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\CapCR.ico"
+
 IDR_CapCRTYPE           ICON                    "res\\CapCRDoc.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -81,18 +83,31 @@ IDR_CapCRTYPE           ICON                    "res\\CapCRDoc.ico"
 //
 
 IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+
 IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar256.bmp"
+
 IDB_MAIN                BITMAP                  "res\\main.bmp"
+
 IDB_FILELARGE           BITMAP                  "res\\filelarge.bmp"
+
 IDB_FILESMALL           BITMAP                  "res\\filesmall.bmp"
+
 IDB_WRITELARGE          BITMAP                  "res\\writelarge.bmp"
+
 IDB_WRITESMALL          BITMAP                  "res\\writesmall.bmp"
+
 IDB_BUTTONS             BITMAP                  "res\\buttons.bmp"
+
 IDB_BITMAP1             BITMAP                  "res\\mainbutton.bmp"
+
 IDB_BITMAP2             BITMAP                  "res\\button.bmp"
+
 IDB_BITMAP3             BITMAP                  "res\\fileimage.bmp"
+
 IDB_BITMAP_NAVER        BITMAP                  "res\\naver.bmp"
+
 IDB_BITMAP_GOOGLE       BITMAP                  "res\\google.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -274,7 +289,7 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
 EXSTYLE WS_EX_CLIENTEDGE
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    EDITTEXT        IDC_EDIT_TEXTBOX,7,7,337,89,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN,WS_EX_DLGMODALFRAME | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    EDITTEXT        IDC_EDIT_TEXTBOX,7,7,337,89,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL,WS_EX_DLGMODALFRAME | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
 END
 
 IDD_TRANSLATE DIALOGEX 0, 0, 163, 80

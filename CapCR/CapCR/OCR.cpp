@@ -755,7 +755,7 @@ void COCR::AddSpaceValue()
 
 		if (!allData.data[i].isFixed)
 		{
-			if (maxGap - 5 < gap && gap < maxGap + 5)
+			if (maxGap -7 < gap && gap < maxGap + 7)
 				allData.data[i].isSpaced = true;
 		}
 	}
@@ -976,6 +976,15 @@ void COCR::CheckBigSmallLetter()		// 대소문자 확인
 
 			for (int j = idxStart; j < i; j++)			// 한줄씩 대소문자 판별
 			{
+				if (allData.data[j].letter.value == '0')
+				{
+					if (j > 0)
+					{
+						if (IsAlphabet(allData.data[j - 1].letter.value) && IsAlphabet(allData.data[j + 1].letter.value))
+							allData.data[j].letter.value = 'o';
+					}
+				}
+
 				// nMaxHeight와 높이가 비슷하면 대문자
 				if (nMaxHeight - 3 < allData.data[j].rect.start.y && allData.data[j].rect.start.y < nMaxHeight + 3)
 					ChangeSmallToBigLetter(&allData.data[j].letter.value);
