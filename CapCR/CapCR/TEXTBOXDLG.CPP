@@ -57,7 +57,7 @@ BOOL CTextboxDlg::OnInitDialog()
 	pos.y = parentSize.y;
 
 	// 표시위치 지정
-	SetWindowPos(NULL, pos.x + 8, pos.y - 9, 0, 0, SWP_NOSIZE);
+	SetWindowPos(NULL, rectParent.left + 8, rectParent.bottom - 9, 0, 0, SWP_NOSIZE);
 
 	// 폰트 설정
 //	m_font.CreatePointFont(150, "굴림");

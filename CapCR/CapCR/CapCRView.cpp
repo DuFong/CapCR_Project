@@ -185,12 +185,21 @@ void CCapCRView::OnButtonCapture()
 
 	CString imgName = _T("Desktop.jpg");
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+	CCapCRView* pView = (CCapCRView*)((CMainFrame*)AfxGetMainWnd())->GetActiveView();
 
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
 	// 현재 창 투명하게
 	::SetWindowLong(pFrame->GetSafeHwnd(), GWL_EXSTYLE, ::GetWindowLong(pFrame->GetSafeHwnd(), GWL_EXSTYLE) | WS_EX_LAYERED);
 	pFrame->SetLayeredWindowAttributes(0, 0, LWA_ALPHA);
+
+	// 텍스트박스 대화상자도 없앰(ocr객체 삭제)
+	if (!pView->m_bOcrEmpty)
+	{
+		pView->ocr->DestroyTextDialog();
+		delete(pView->ocr);
+		m_bOcrEmpty = true;
+	}
 
 
 	// Canvas 다이얼로그 호출
@@ -204,8 +213,10 @@ void CCapCRView::OnButtonCapture()
 	int nClipWidth = area.right - area.left;
 	int nClipHeight = area.bottom - area.top;
 
+
 	CWnd* pWndDesktop = GetDesktopWindow();
 	// 바탕 화면 윈도우 DC 
+
 
 	CWindowDC ScrDC(pWndDesktop);
 	// 뷰 윈도우 DC
@@ -215,10 +226,12 @@ void CCapCRView::OnButtonCapture()
 	CWnd::GetWindowRect(&Rect);
 
 
+
 	int sx = area.left;
 	int sy = area.top;
 	int cx = nClipWidth;
 	int cy = nClipHeight;
+
 
 	SIZE s;
 	ZeroMemory(&s, sizeof(SIZE));
@@ -248,7 +261,6 @@ void CCapCRView::OnButtonCapture()
 
 
 	Image.Save(imgName, Gdiplus::ImageFormatJPEG);
-
 	if (cx > 560 && cy > 300)
 		pFrame->SetWindowPos(NULL, (s.cx / 2) - (cx + 50) / 2, 0, cx + 30, cy + 170, SWP_NOREPOSITION);
 	else if (cx < 560 && cy < 300) {
@@ -267,7 +279,6 @@ void CCapCRView::OnButtonCapture()
 
 	// 이미지 뷰에 붙이기
 	Image.BitBlt(dc.m_hDC, 0, 0);
-
 
 
 	// 그 파일을 실행해 준다. 
@@ -298,7 +309,11 @@ void CCapCRView::OnButtonRunocr()
 	pDlg->ShowWindow(SW_SHOW);
 	
 	if (m_bOcrEmpty == FALSE)
+	{
 		ocr->DestroyTextDialog();
+		delete(ocr);
+		m_bOcrEmpty = true;
+	}
 	ocr = new COCR();
 	ocr->RunOCR(&Image, "ConvertedText.txt", pDlg);
 	m_bOcrEmpty = FALSE;
@@ -307,6 +322,7 @@ void CCapCRView::OnButtonRunocr()
 	UpdateData(FALSE);
 
 	SetCursor(AfxGetApp()->LoadStandardCursor(IDC_ARROW));
+	Invalidate();
 }
 
 
