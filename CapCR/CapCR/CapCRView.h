@@ -83,6 +83,7 @@ public:
 	bool m_bIgnoreFix;
 	bool m_bIgnoreSpace;
 	afx_msg void OnButtonTranslate();
+	afx_msg void OnButtonSearch();
 };
 
 #ifndef _DEBUG  // CapCRView.cpp의 디버그 버전

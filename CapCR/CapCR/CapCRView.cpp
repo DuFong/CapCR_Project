@@ -26,6 +26,7 @@
 #include "OCR.h"
 #include "ProgressDlg.h"
 #include "TranslateDlg.h"
+#include "SearchDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -50,6 +51,7 @@ BEGIN_MESSAGE_MAP(CCapCRView, CFormView)
 	ON_UPDATE_COMMAND_UI(ID_CHECK_IGNORE_FIX, &CCapCRView::OnUpdateCheckIgnoreFix)
 	ON_UPDATE_COMMAND_UI(ID_CHECK_IGNORE_SPACE, &CCapCRView::OnUpdateCheckIgnoreSpace)
 	ON_COMMAND(ID_BUTTON_TRANSLATE, &CCapCRView::OnButtonTranslate)
+	ON_COMMAND(ID_BUTTON_SEARCH, &CCapCRView::OnButtonSearch)
 END_MESSAGE_MAP()
 
 // CCapCRView 생성/소멸
@@ -444,5 +446,13 @@ void CCapCRView::OnButtonTranslate()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	CTranslateDlg dlg;
+	dlg.DoModal();
+}
+
+
+void CCapCRView::OnButtonSearch()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CSearchDlg dlg;
 	dlg.DoModal();
 }
