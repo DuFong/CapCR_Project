@@ -175,6 +175,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 //	virtual BOOL PreTranslateMessage(MSG* pMsg);
+//	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -187,6 +188,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+//	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 // 대화 상자를 실행하기 위한 응용 프로그램 명령입니다.
@@ -216,4 +218,3 @@ void CCapCRApp::SaveCustomState()
 }
 
 // CCapCRApp 메시지 처리기
-

@@ -36,6 +36,7 @@ void CSearchDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CSearchDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_NAVER, &CSearchDlg::OnClickedButtonNaver)
 	ON_BN_CLICKED(IDC_BUTTON_GOOGLE, &CSearchDlg::OnClickedButtonGoogle)
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 
@@ -129,4 +130,15 @@ void CSearchDlg::OnClickedButtonGoogle()
 
 		ShellExecute(NULL, "open", "iexplore", var, NULL, SW_SHOW);
 	}
+}
+
+
+BOOL CSearchDlg::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CRect rect;
+	GetClientRect(rect);
+	pDC->FillSolidRect(rect, RGB(255, 255, 255));
+
+	return TRUE;
 }

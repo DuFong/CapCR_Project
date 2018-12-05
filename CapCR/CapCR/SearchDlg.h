@@ -27,4 +27,5 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnClickedButtonNaver();
 	afx_msg void OnClickedButtonGoogle();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };

@@ -53,6 +53,9 @@ BEGIN_MESSAGE_MAP(CCapCRView, CFormView)
 	ON_COMMAND(ID_BUTTON_TRANSLATE, &CCapCRView::OnButtonTranslate)
 	ON_COMMAND(ID_BUTTON_SEARCH, &CCapCRView::OnButtonSearch)
 	ON_WM_ERASEBKGND()
+	ON_UPDATE_COMMAND_UI(ID_BUTTON_SAVETEXT, &CCapCRView::OnUpdateButtonSavetext)
+	ON_UPDATE_COMMAND_UI(ID_BUTTON_SEARCH, &CCapCRView::OnUpdateButtonSearch)
+	ON_UPDATE_COMMAND_UI(ID_BUTTON_TRANSLATE, &CCapCRView::OnUpdateButtonTranslate)
 END_MESSAGE_MAP()
 
 // CCapCRView 생성/소멸
@@ -197,10 +200,11 @@ void CCapCRView::OnButtonCapture()
 	pFrame->SetLayeredWindowAttributes(0, 0, LWA_ALPHA);
 
 	// 텍스트박스 대화상자도 없앰(ocr객체 삭제)
-	if (!pView->m_bOcrEmpty)
+	if (!m_bOcrEmpty)
 	{
-		pView->ocr->DestroyTextDialog();
-		delete(pView->ocr);
+		if (!ocr->m_bTextboxEmpty)
+			ocr->DestroyTextDialog();
+		delete(ocr);
 		m_bOcrEmpty = true;
 	}
 
@@ -402,9 +406,9 @@ void CCapCRView::OnButtonSavetext()
 	printf("[OnBnClickedBtnSave] \n");
 	CString m_strPath;
 	CStdioFile file;
-	// CFile file;
 	CFileException ex;
 	CFileDialog dlg(FALSE, _T("*.txt"), NULL, OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT, _T("TXT Files(*.txt)|*.txt|"), NULL);
+
 	if (dlg.DoModal() == IDOK)
 	{
 		m_strPath = dlg.GetPathName();
@@ -414,12 +418,11 @@ void CCapCRView::OnButtonSavetext()
 		}
 		file.Open(m_strPath, CFile::modeCreate | CFile::modeReadWrite, &ex);
 		// 에디트 박스에 있는 것을 저장한다. 
-		UpdateData(TRUE);
-		//file.WriteString(m_strTextbox);
+		ocr->textbox->UpdateData(TRUE);
+		file.WriteString(ocr->textbox->m_strTextbox);
 		// 종료한다. 
 		file.Close();
 	}
-
 }
 
 
@@ -495,4 +498,25 @@ BOOL CCapCRView::OnEraseBkgnd(CDC* pDC)
 COCR* CCapCRView::GetOcrObject()
 {
 	return ocr;
+}
+
+
+void CCapCRView::OnUpdateButtonSavetext(CCmdUI *pCmdUI)
+{
+	// TODO: 여기에 명령 업데이트 UI 처리기 코드를 추가합니다.
+	pCmdUI->Enable(!m_bOcrEmpty);
+}
+
+
+void CCapCRView::OnUpdateButtonSearch(CCmdUI *pCmdUI)
+{
+	// TODO: 여기에 명령 업데이트 UI 처리기 코드를 추가합니다.
+	pCmdUI->Enable(!m_bOcrEmpty);
+}
+
+
+void CCapCRView::OnUpdateButtonTranslate(CCmdUI *pCmdUI)
+{
+	// TODO: 여기에 명령 업데이트 UI 처리기 코드를 추가합니다.
+	pCmdUI->Enable(!m_bOcrEmpty);
 }

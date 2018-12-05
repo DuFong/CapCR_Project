@@ -87,6 +87,9 @@ public:
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 //	COCR GetOcrObject();
 	COCR* GetOcrObject();
+	afx_msg void OnUpdateButtonSavetext(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateButtonSearch(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateButtonTranslate(CCmdUI *pCmdUI);
 };
 
 #ifndef _DEBUG  // CapCRView.cpp의 디버그 버전

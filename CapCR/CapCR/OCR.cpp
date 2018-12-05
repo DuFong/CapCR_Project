@@ -700,17 +700,6 @@ void COCR::StoreLetterToTextFile(CString outFileName)
 
 	CCapCRView* pView = (CCapCRView*)((CMainFrame*)AfxGetMainWnd())->GetActiveView();
 
-	/*	CString a, b, c;
-	a.Format(_T("%d"), allData.data[5].rect.start.y);
-	b.Format(_T("%d"), allData.data[5].rect.end.y);
-	if (allData.data[1].isDeleted)
-	c = "Delete";
-	else
-	c = "Alive";
-	AfxMessageBox(a);
-	AfxMessageBox(b);*/
-	//AfxMessageBox(c);
-
 	for (int i = 0; i < allData.count; i++)
 	{
 		CString chr2str;
@@ -741,13 +730,9 @@ void COCR::StoreLetterToTextFile(CString outFileName)
 	
 	textbox = new CTextboxDlg();
 	textbox->m_strTextbox.SetString(strResult);
-	if (textbox->m_strTextbox.IsEmpty() == FALSE) {
-		textbox->Create(IDD_TEXTBOX);
-		m_bTextboxEmpty = FALSE;
-		textbox->ShowWindow(SW_SHOW);
-	}
-	else
-		AfxMessageBox(_T("텍스트 변환에 실패하였습니다."));
+	textbox->Create(IDD_TEXTBOX);
+	m_bTextboxEmpty = FALSE;
+	textbox->ShowWindow(SW_SHOW);
 }
 
 

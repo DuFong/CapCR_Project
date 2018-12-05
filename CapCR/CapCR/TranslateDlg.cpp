@@ -34,6 +34,7 @@ void CTranslateDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CTranslateDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_OK, &CTranslateDlg::OnClickedButtonOk)
+//	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 
@@ -79,21 +80,20 @@ void CTranslateDlg::OnClickedButtonOk()
 		}
 		if (index + 1)
 		{
-			TCHAR split_type[] = _T(" ");
-			TCHAR *p_next_token = NULL;
-			TCHAR *p_token = _tcstok_s((TCHAR *)(const TCHAR *)edit_text, split_type, &p_next_token);
+			char* pEdit_text = (char*)((LPCSTR)(edit_text));
 
-			while (p_token != NULL) {
-				var += p_token;
-				p_token = _tcstok_s(NULL, split_type, &p_next_token);
-				if (p_token != NULL)
+			for (int i = 0; i < strlen(pEdit_text); i++)
+			{
+				if (pEdit_text[i] == ' ')
 					var += "%20";
+				else if (pEdit_text[i] == '\n')
+					var += "%0A";
+				else
+					var += pEdit_text[i];
 			}
 			//여기까지
 
 			ShellExecute(NULL, "open", "iexplore", var, NULL, SW_SHOW);
 		}
-
 	}
-
 }

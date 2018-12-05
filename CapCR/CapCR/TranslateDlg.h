@@ -24,4 +24,5 @@ protected:
 public:
 	afx_msg void OnClickedButtonOk();
 	CComboBox m_cbLang;
+//	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
