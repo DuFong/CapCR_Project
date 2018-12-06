@@ -109,7 +109,7 @@ void COCR::ParsingStepFirst(CProgressDlg* pDlg)		// 전체 이미지에 대하여 라인을 
 
 	flagPrevLine = false;
 
-	pDlg->m_progressBar.SetRange(0, yMax);
+	pDlg->m_progressBar.SetRange(0, 9*yMax);
 	pDlg->m_progressBar.SetPos(0);
 
 	for (y = 0; y < yMax; y++)
@@ -142,8 +142,8 @@ void COCR::ParsingStepFirst(CProgressDlg* pDlg)		// 전체 이미지에 대하여 라인을 
 		}
 
 		flagPrevLine = isLetterLine;
-		if (y % 2 == 0)
-			pDlg->m_progressBar.SetPos(pDlg->m_progressBar.GetPos() + 1);
+		
+		pDlg->m_progressBar.SetPos(pDlg->m_progressBar.GetPos() + 1);
 	}
 }
 
@@ -199,7 +199,7 @@ void COCR::ParsingStepSecond(int yTop, int yBottom, CProgressDlg* pDlg)		// 하나
 		}
 		flagPrevLine = isLetterLine;
 	}
-
+	pDlg->m_progressBar.SetPos(pDlg->m_progressBar.GetPos() + 1);
 	data->isFixed = true;
 }
 
@@ -210,6 +210,7 @@ void COCR::ParsingStepThird(Rect* rect, CProgressDlg* pDlg)		// 한 문자의 사각형
 	COLORREF rgb;
 	bool isLetterLine;
 
+	pDlg->m_progressBar.SetPos(pDlg->m_progressBar.GetPos() + 1);
 	// Letter Top
 	for (y = rect->start.y; ; y--)
 	{
