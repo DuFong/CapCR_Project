@@ -53,6 +53,13 @@ BOOL CSearchDlg::OnInitDialog()
 	m_btNaver.SizeToContent();
 
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+	HCURSOR hCursor;
+	hCursor = AfxGetApp()->LoadStandardCursor(IDC_HAND);
+	SetClassLong(m_btGoogle.GetSafeHwnd(), GCL_HCURSOR, (LONG)hCursor);
+	SetClassLong(m_btNaver.GetSafeHwnd(), GCL_HCURSOR, (LONG)hCursor);
+
+
+출처: http://mooyou.tistory.com/38 [무유 블로그]
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.

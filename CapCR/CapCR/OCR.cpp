@@ -692,8 +692,8 @@ void COCR::FindLetterValue()
 
 void COCR::StoreLetterToTextFile(CString outFileName)
 {
-	FILE *fp;
-	fp = fopen((char*)((LPCSTR)(outFileName)), "wt");
+//	FILE *fp;
+//	fp = fopen((char*)((LPCSTR)(outFileName)), "wt");
 
 	CString strResult;
 	strResult.Format(_T(""));
@@ -707,26 +707,26 @@ void COCR::StoreLetterToTextFile(CString outFileName)
 
 		if (!allData.data[i].isDeleted)		// Å«µû¿ÈÇ¥("")Ã³¸®
 		{
-			fputc(allData.data[i].letter.value, fp);
+	//		fputc(allData.data[i].letter.value, fp);
 			strResult += chr2str;
 		}
 
 		if (allData.data[i + 1].isFixed && !pView->m_bIgnoreFix)		// °³Çà »ðÀÔ
 		{
-			fputc('\n', fp);
+	//		fputc('\n', fp);
 			strResult += "\r\n";
 		}
 
 		if (allData.data[i + 1].isSpaced && !pView->m_bIgnoreSpace)		// °ø¹é »ðÀÔ
 		{
-			fputc(' ', fp);
+	//		fputc(' ', fp);
 			strResult += " ";
 		}
 
 		//	PrintImageDataToFile(i, &allData.data[i].letter);
 		//	PrintImageToFile(i, &allData.data[i].rect);
 	}
-	fclose(fp);
+	//fclose(fp);
 	
 	textbox = new CTextboxDlg();
 	textbox->m_strTextbox.SetString(strResult);

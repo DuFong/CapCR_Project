@@ -267,7 +267,7 @@ void CCapCRView::OnButtonCapture()
 	//Image.Load(imgName);
 
 
-	Image.Save(imgName, Gdiplus::ImageFormatJPEG);
+	//Image.Save(imgName, Gdiplus::ImageFormatJPEG);
 	if (cx > 560 && cy > 300)
 		pFrame->SetWindowPos(NULL, (s.cx / 2) - (cx + 50) / 2, 0, cx + 30, cy + 170, SWP_NOREPOSITION);
 	else if (cx < 560 && cy < 300) {
