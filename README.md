@@ -16,8 +16,8 @@
 ![무시기능](https://user-images.githubusercontent.com/44297538/81371659-6447ad00-9133-11ea-8975-37ff4b4078e1.gif)
 
 ### 인식한 글 저장
-
 인식된 글을 저장합니다.
+
 ![텍스트저장](https://user-images.githubusercontent.com/44297538/81371678-6dd11500-9133-11ea-931a-a8acb1c5eb6a.gif)
 
 ### 인식한 글 검색
